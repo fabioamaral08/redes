@@ -16,10 +16,10 @@ import java.util.logging.Logger;
  */
 public class JogadorS {
     private InetAddress IP;
-    private String porta;
+    private int porta;
     private short status;   //0 - Disponivel, 1 - Criando partida, 2 - Jogando
     
-    public JogadorS(String IP, String porta){
+    public JogadorS(String IP, int porta){
         try {
             this.IP = InetAddress.getByName(IP);
         } catch (UnknownHostException ex) {
@@ -37,11 +37,11 @@ public class JogadorS {
         this.IP = IP;
     }
 
-    public String getPorta() {
+    public int getPorta() {
         return porta;
     }
 
-    public void setPorta(String porta) {
+    public void setPorta(int porta) {
         this.porta = porta;
     }
 
