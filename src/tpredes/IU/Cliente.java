@@ -39,7 +39,7 @@ public class Cliente extends javax.swing.JFrame {
         p_cliente.setLayout(p_clienteLayout);
         p_clienteLayout.setHorizontalGroup(
             p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 415, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
         p_clienteLayout.setVerticalGroup(
             p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

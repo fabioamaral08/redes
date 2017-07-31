@@ -27,5 +27,12 @@ public class Aplicacao implements Runnable{
         
     }
     
+    public void fazerProposta(int jog, int prop){
+        
+    }
+    
+    public void enviaMensagem(String cod){
+        
+    }
     
 }
