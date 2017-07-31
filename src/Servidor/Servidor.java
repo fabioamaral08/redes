@@ -13,16 +13,34 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import tpredes.JogadorS;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  *
  * @author Gustavoo
  */
-public class Servidor {
+public class Servidor implements Runnable{
 
-    private final ArrayList<JogadorS> players = new ArrayList();
+    private final ArrayList<JogadorS> players;
+    private DatagramSocket dS;
+    private DatagramPacket dt;
+    private byte[] resposta;
+    
+    public Servidor (){        
+        try {
+            this.resposta = new byte[1024];
+            this.dS = new DatagramSocket();
+            this.dt = new DatagramPacket(this.resposta, this.resposta.length);
+        } catch (SocketException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.players = new ArrayList();   
+    }
 
+    public ArrayList<JogadorS> getPlayers() {
+        return players;
+    }
 
 
 
@@ -68,14 +86,30 @@ public class Servidor {
         }
         return null;
     }
+    
+    public void escuta() throws IOException{
+        String print;
+        boolean fim = true;
+        dS.receive(dt);
+        
+        Thread t = new Thread((Runnable) this);
+        t.start();
+        
+       
+    }
+    
+        @Override
+    public void run() {
+        
+        verificaMensagem(new String(dt.getData()));
+    }
 
-    public void verificaMensagem(DatagramPacket dt, String mensagem) {
+    public void verificaMensagem(String mensagem) {
         StringTokenizer tk = new StringTokenizer(mensagem, " ");
         DatagramSocket ds;
         DatagramPacket dp;
         String ip;
         JogadorS jS;
-        byte[] resposta = new byte[1024];
         int porta;
 
         switch (tk.nextToken()) {
@@ -140,26 +174,7 @@ public class Servidor {
                 
         }
     }
-    
-    public static void main(String[] args) throws SocketException, UnknownHostException, IOException {
-        DatagramSocket dS = new DatagramSocket();
 
-        System.out.println(dS.getLocalPort() + "\n" + InetAddress.getLocalHost());
 
-        String print;
-        boolean fim = true;
-        while (fim) {
-            byte[] msg = new byte[1024];
-            DatagramPacket dp = new DatagramPacket(msg, msg.length);
-            dS.receive(dp);
-            print = new String(dp.getData());
-            InetAddress ip = dp.getAddress();
-            int port = dp.getPort();
-
-           
-
-    }
-
-}
     
 }
