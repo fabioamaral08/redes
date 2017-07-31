@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tpredes;
+package Servidor;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import tpredes.JogadorS;
 
 /*
  *
@@ -136,5 +140,26 @@ public class Servidor {
                 
         }
     }
+    
+    public static void main(String[] args) throws SocketException, UnknownHostException, IOException {
+        DatagramSocket dS = new DatagramSocket();
 
+        System.out.println(dS.getLocalPort() + "\n" + InetAddress.getLocalHost());
+
+        String print;
+        boolean fim = true;
+        while (fim) {
+            byte[] msg = new byte[1024];
+            DatagramPacket dp = new DatagramPacket(msg, msg.length);
+            dS.receive(dp);
+            print = new String(dp.getData());
+            InetAddress ip = dp.getAddress();
+            int port = dp.getPort();
+
+           
+
+    }
+
+}
+    
 }
