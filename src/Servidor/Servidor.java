@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import tpredes.JogadorS;
 
 /*
  *
@@ -37,6 +36,10 @@ public class Servidor implements Runnable{
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.players = new ArrayList();   
+    }
+
+    public ArrayList<JogadorS> getPlayers() {
+        return players;
     }
 
 
