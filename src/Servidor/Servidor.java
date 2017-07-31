@@ -87,13 +87,18 @@ public class Servidor implements Runnable{
         return null;
     }
     
-    public void escuta() throws IOException{
-        String print;
-        boolean fim = true;
-        dS.receive(dt);
+    public void escuta(){
         
-        Thread t = new Thread((Runnable) this);
-        t.start();
+        try {
+            String print;
+            boolean fim = true;
+            dS.receive(dt);
+            
+            Thread t = new Thread((Runnable) this);
+            t.start();
+        } catch (IOException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
        
     }
