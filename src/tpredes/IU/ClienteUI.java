@@ -5,35 +5,18 @@
  */
 package tpredes.IU;
 
-import java.awt.CardLayout;
-
 /**
  *
- * @author cc151255911
+ * @author Foltran
  */
 public class ClienteUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form Cliente
+     * Creates new form Cliente2UI
      */
     public ClienteUI() {
         initComponents();
-        
-        CardLayout card1 = (CardLayout)p_player1.getLayout();
-        card1.show(p_player1, "player1_offline");
-        
-        CardLayout card2 = (CardLayout)p_player2.getLayout();
-        card2.show(p_player1, "player2_offline");
-        
-        CardLayout card3 = (CardLayout)p_player3.getLayout();
-        card3.show(p_player1, "player3_offline");
-        
-        CardLayout card4 = (CardLayout)p_player4.getLayout();
-        card4.show(p_player1, "player4_offline");
-        
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,12 +27,11 @@ public class ClienteUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        p_cliente = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         p_player1 = new javax.swing.JPanel();
         p_player1_offline = new javax.swing.JPanel();
         p_player1_online = new javax.swing.JPanel();
         lb_player1 = new javax.swing.JLabel();
-        lb_name1 = new javax.swing.JLabel();
         lb_saldo1 = new javax.swing.JLabel();
         lb_saldoAtual1 = new javax.swing.JLabel();
         lb_pos1 = new javax.swing.JLabel();
@@ -58,7 +40,6 @@ public class ClienteUI extends javax.swing.JFrame {
         p_player2_offline = new javax.swing.JPanel();
         p_player2_online = new javax.swing.JPanel();
         lb_player2 = new javax.swing.JLabel();
-        lb_name2 = new javax.swing.JLabel();
         lb_saldo2 = new javax.swing.JLabel();
         lb_saldoAtual2 = new javax.swing.JLabel();
         lb_pos2 = new javax.swing.JLabel();
@@ -67,7 +48,6 @@ public class ClienteUI extends javax.swing.JFrame {
         p_player3_offline = new javax.swing.JPanel();
         p_player3_online = new javax.swing.JPanel();
         lb_player3 = new javax.swing.JLabel();
-        lb_name3 = new javax.swing.JLabel();
         lb_saldo3 = new javax.swing.JLabel();
         lb_saldoAtual3 = new javax.swing.JLabel();
         lb_pos3 = new javax.swing.JLabel();
@@ -76,7 +56,6 @@ public class ClienteUI extends javax.swing.JFrame {
         p_player4_offline = new javax.swing.JPanel();
         p_player4_online = new javax.swing.JPanel();
         lb_player4 = new javax.swing.JLabel();
-        lb_name4 = new javax.swing.JLabel();
         lb_saldo4 = new javax.swing.JLabel();
         lb_saldoAtual4 = new javax.swing.JLabel();
         lb_pos4 = new javax.swing.JLabel();
@@ -92,39 +71,37 @@ public class ClienteUI extends javax.swing.JFrame {
         lb_oferta = new javax.swing.JLabel();
         tf_oferta = new javax.swing.JTextField();
         btn_go = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        menuBar = new javax.swing.JMenuBar();
+        m_conectar = new javax.swing.JMenu();
+        m_criarSala = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        p_cliente.setPreferredSize(new java.awt.Dimension(526, 430));
-
         p_player1.setBackground(new java.awt.Color(0, 204, 0));
+        p_player1.setPreferredSize(new java.awt.Dimension(250, 100));
         p_player1.setLayout(new java.awt.CardLayout());
 
-        p_player1_offline.setBackground(new java.awt.Color(102, 255, 102));
+        p_player1_offline.setBackground(new java.awt.Color(100, 255, 100));
+        p_player1_offline.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 150, 50), 3));
 
         javax.swing.GroupLayout p_player1_offlineLayout = new javax.swing.GroupLayout(p_player1_offline);
         p_player1_offline.setLayout(p_player1_offlineLayout);
         p_player1_offlineLayout.setHorizontalGroup(
             p_player1_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 174, Short.MAX_VALUE)
         );
         p_player1_offlineLayout.setVerticalGroup(
             p_player1_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 105, Short.MAX_VALUE)
+            .addGap(0, 111, Short.MAX_VALUE)
         );
 
         p_player1.add(p_player1_offline, "player1_offline");
 
-        p_player1_online.setBackground(new java.awt.Color(0, 204, 0));
+        p_player1_online.setBackground(new java.awt.Color(0, 250, 0));
+        p_player1_online.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 150, 50), 3));
 
         lb_player1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lb_player1.setText("Player1:");
-
-        lb_name1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lb_name1.setText("Name1");
+        lb_player1.setText("Player1");
 
         lb_saldo1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lb_saldo1.setText("Saldo:");
@@ -145,10 +122,7 @@ public class ClienteUI extends javax.swing.JFrame {
             .addGroup(p_player1_onlineLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(p_player1_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(p_player1_onlineLayout.createSequentialGroup()
-                        .addComponent(lb_player1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lb_name1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lb_player1)
                     .addGroup(p_player1_onlineLayout.createSequentialGroup()
                         .addComponent(lb_saldo1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -157,15 +131,13 @@ public class ClienteUI extends javax.swing.JFrame {
                         .addComponent(lb_pos1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lb_posAtual1)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         p_player1_onlineLayout.setVerticalGroup(
             p_player1_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_player1_onlineLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(p_player1_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_player1)
-                    .addComponent(lb_name1))
+                .addComponent(lb_player1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(p_player1_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_saldo1)
@@ -174,7 +146,7 @@ public class ClienteUI extends javax.swing.JFrame {
                 .addGroup(p_player1_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_pos1)
                     .addComponent(lb_posAtual1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         p_player1.add(p_player1_online, "player1_online");
@@ -182,29 +154,28 @@ public class ClienteUI extends javax.swing.JFrame {
         p_player2.setBackground(new java.awt.Color(0, 204, 0));
         p_player2.setLayout(new java.awt.CardLayout());
 
-        p_player2_offline.setBackground(new java.awt.Color(255, 102, 102));
+        p_player2_offline.setBackground(new java.awt.Color(255, 100, 100));
+        p_player2_offline.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 0, 50), 3));
 
         javax.swing.GroupLayout p_player2_offlineLayout = new javax.swing.GroupLayout(p_player2_offline);
         p_player2_offline.setLayout(p_player2_offlineLayout);
         p_player2_offlineLayout.setHorizontalGroup(
             p_player2_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 174, Short.MAX_VALUE)
         );
         p_player2_offlineLayout.setVerticalGroup(
             p_player2_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 105, Short.MAX_VALUE)
+            .addGap(0, 111, Short.MAX_VALUE)
         );
 
         p_player2.add(p_player2_offline, "player2_offline");
 
-        p_player2_online.setBackground(new java.awt.Color(255, 0, 0));
+        p_player2_online.setBackground(new java.awt.Color(250, 0, 0));
+        p_player2_online.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 0, 50), 3));
         p_player2_online.setPreferredSize(new java.awt.Dimension(250, 100));
 
         lb_player2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lb_player2.setText("Player2:");
-
-        lb_name2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lb_name2.setText("Name2");
+        lb_player2.setText("Player2");
 
         lb_saldo2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lb_saldo2.setText("Saldo:");
@@ -225,10 +196,7 @@ public class ClienteUI extends javax.swing.JFrame {
             .addGroup(p_player2_onlineLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(p_player2_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(p_player2_onlineLayout.createSequentialGroup()
-                        .addComponent(lb_player2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lb_name2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lb_player2)
                     .addGroup(p_player2_onlineLayout.createSequentialGroup()
                         .addComponent(lb_pos2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -237,15 +205,13 @@ public class ClienteUI extends javax.swing.JFrame {
                         .addComponent(lb_saldo2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lb_saldoAtual2)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         p_player2_onlineLayout.setVerticalGroup(
             p_player2_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_player2_onlineLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(p_player2_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_player2)
-                    .addComponent(lb_name2))
+                .addComponent(lb_player2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(p_player2_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_saldo2)
@@ -254,13 +220,12 @@ public class ClienteUI extends javax.swing.JFrame {
                 .addGroup(p_player2_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_pos2)
                     .addComponent(lb_posAtual2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         p_player2.add(p_player2_online, "player2_online");
 
         p_player3.setBackground(new java.awt.Color(255, 255, 204));
-        p_player3.setPreferredSize(new java.awt.Dimension(250, 100));
         p_player3.setLayout(new java.awt.CardLayout());
 
         p_player3_offline.setBackground(new java.awt.Color(255, 255, 102));
@@ -270,22 +235,19 @@ public class ClienteUI extends javax.swing.JFrame {
         p_player3_offline.setLayout(p_player3_offlineLayout);
         p_player3_offlineLayout.setHorizontalGroup(
             p_player3_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 180, Short.MAX_VALUE)
         );
         p_player3_offlineLayout.setVerticalGroup(
             p_player3_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 108, Short.MAX_VALUE)
         );
 
         p_player3.add(p_player3_offline, "player3_offline");
 
-        p_player3_online.setBackground(new java.awt.Color(255, 255, 0));
+        p_player3_online.setBackground(new java.awt.Color(250, 250, 0));
 
         lb_player3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lb_player3.setText("Player3:");
-
-        lb_name3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lb_name3.setText("Name3");
+        lb_player3.setText("Player3");
 
         lb_saldo3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lb_saldo3.setText("Saldo:");
@@ -306,10 +268,7 @@ public class ClienteUI extends javax.swing.JFrame {
             .addGroup(p_player3_onlineLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(p_player3_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(p_player3_onlineLayout.createSequentialGroup()
-                        .addComponent(lb_player3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lb_name3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lb_player3)
                     .addGroup(p_player3_onlineLayout.createSequentialGroup()
                         .addComponent(lb_pos3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -318,15 +277,13 @@ public class ClienteUI extends javax.swing.JFrame {
                         .addComponent(lb_saldo3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lb_saldoAtual3)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         p_player3_onlineLayout.setVerticalGroup(
             p_player3_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_player3_onlineLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(p_player3_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_player3)
-                    .addComponent(lb_name3))
+                .addComponent(lb_player3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(p_player3_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_saldo3)
@@ -335,13 +292,12 @@ public class ClienteUI extends javax.swing.JFrame {
                 .addGroup(p_player3_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_pos3)
                     .addComponent(lb_posAtual3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         p_player3.add(p_player3_online, "player3_online");
 
         p_player4.setBackground(new java.awt.Color(204, 255, 204));
-        p_player4.setPreferredSize(new java.awt.Dimension(250, 100));
         p_player4.setLayout(new java.awt.CardLayout());
 
         p_player4_offline.setBackground(new java.awt.Color(102, 102, 255));
@@ -351,23 +307,20 @@ public class ClienteUI extends javax.swing.JFrame {
         p_player4_offline.setLayout(p_player4_offlineLayout);
         p_player4_offlineLayout.setHorizontalGroup(
             p_player4_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 180, Short.MAX_VALUE)
         );
         p_player4_offlineLayout.setVerticalGroup(
             p_player4_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 108, Short.MAX_VALUE)
         );
 
         p_player4.add(p_player4_offline, "player4_offline");
 
-        p_player4_online.setBackground(new java.awt.Color(0, 0, 255));
+        p_player4_online.setBackground(new java.awt.Color(0, 0, 250));
         p_player4_online.setPreferredSize(new java.awt.Dimension(250, 100));
 
         lb_player4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lb_player4.setText("Player4:");
-
-        lb_name4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lb_name4.setText("Name4");
+        lb_player4.setText("Player4");
 
         lb_saldo4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lb_saldo4.setText("Saldo:");
@@ -388,10 +341,7 @@ public class ClienteUI extends javax.swing.JFrame {
             .addGroup(p_player4_onlineLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(p_player4_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(p_player4_onlineLayout.createSequentialGroup()
-                        .addComponent(lb_player4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lb_name4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lb_player4)
                     .addGroup(p_player4_onlineLayout.createSequentialGroup()
                         .addComponent(lb_pos4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -400,15 +350,13 @@ public class ClienteUI extends javax.swing.JFrame {
                         .addComponent(lb_saldo4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lb_saldoAtual4)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         p_player4_onlineLayout.setVerticalGroup(
             p_player4_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_player4_onlineLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(p_player4_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_player4)
-                    .addComponent(lb_name4))
+                .addComponent(lb_player4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(p_player4_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_saldo4)
@@ -417,7 +365,7 @@ public class ClienteUI extends javax.swing.JFrame {
                 .addGroup(p_player4_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_pos4)
                     .addComponent(lb_posAtual4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         p_player4.add(p_player4_online, "player4_online");
@@ -471,7 +419,7 @@ public class ClienteUI extends javax.swing.JFrame {
         cb_propriedade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lb_oferta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lb_oferta.setText("Valor da oferta:");
+        lb_oferta.setText("Oferta:");
 
         tf_oferta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tf_oferta.addActionListener(new java.awt.event.ActionListener() {
@@ -495,32 +443,29 @@ public class ClienteUI extends javax.swing.JFrame {
             p_ofertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_ofertaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(p_ofertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(p_ofertaLayout.createSequentialGroup()
+                .addGroup(p_ofertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_ofertaLayout.createSequentialGroup()
                         .addComponent(lb_proprietario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cb_proprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, p_ofertaLayout.createSequentialGroup()
+                        .addComponent(cb_proprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(p_ofertaLayout.createSequentialGroup()
                         .addGroup(p_ofertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lb_oferta)
                             .addComponent(lb_propriedade))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(p_ofertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cb_propriedade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(p_ofertaLayout.createSequentialGroup()
-                                .addComponent(tf_oferta, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addComponent(cb_propriedade, 0, 169, Short.MAX_VALUE)
+                            .addComponent(tf_oferta))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_go, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(btn_go, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         p_ofertaLayout.setVerticalGroup(
             p_ofertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_ofertaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(p_ofertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_go, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, p_ofertaLayout.createSequentialGroup()
+                .addGroup(p_ofertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(p_ofertaLayout.createSequentialGroup()
                         .addGroup(p_ofertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lb_proprietario)
                             .addComponent(cb_proprietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -530,71 +475,66 @@ public class ClienteUI extends javax.swing.JFrame {
                             .addComponent(cb_propriedade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(p_ofertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lb_oferta)
-                            .addComponent(tf_oferta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                            .addComponent(tf_oferta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_oferta)))
+                    .addComponent(btn_go, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout p_clienteLayout = new javax.swing.GroupLayout(p_cliente);
-        p_cliente.setLayout(p_clienteLayout);
-        p_clienteLayout.setHorizontalGroup(
-            p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(p_clienteLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(p_clienteLayout.createSequentialGroup()
-                        .addComponent(p_player3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(p_player4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_clienteLayout.createSequentialGroup()
-                        .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(p_oferta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(p_rdados, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, p_clienteLayout.createSequentialGroup()
-                                .addComponent(p_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(p_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(p_rdados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(p_player3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(p_player1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(p_player2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(p_player4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(p_oferta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        p_clienteLayout.setVerticalGroup(
-            p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(p_clienteLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(p_player1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(p_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(p_player3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(p_player4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(p_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(p_player1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(p_player3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(p_player4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(p_rdados, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(p_oferta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Conectar");
-        jMenuBar1.add(jMenu1);
+        m_conectar.setText("Conectar");
+        menuBar.add(m_conectar);
 
-        jMenu2.setText("Criar Sala");
-        jMenuBar1.add(jMenu2);
+        m_criarSala.setText("Criar Sala");
+        menuBar.add(m_criarSala);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(p_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(p_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -604,13 +544,13 @@ public class ClienteUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cb_proprietarioActionPerformed
 
-    private void btn_goActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_goActionPerformed
-
     private void tf_ofertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_ofertaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_ofertaActionPerformed
+
+    private void btn_goActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_goActionPerformed
 
     /**
      * @param args the command line arguments
@@ -653,13 +593,7 @@ public class ClienteUI extends javax.swing.JFrame {
     private javax.swing.JButton btn_rdados;
     private javax.swing.JComboBox<String> cb_propriedade;
     private javax.swing.JComboBox<String> cb_proprietario;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JLabel lb_name1;
-    private javax.swing.JLabel lb_name2;
-    private javax.swing.JLabel lb_name3;
-    private javax.swing.JLabel lb_name4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lb_oferta;
     private javax.swing.JLabel lb_player1;
     private javax.swing.JLabel lb_player2;
@@ -683,7 +617,9 @@ public class ClienteUI extends javax.swing.JFrame {
     private javax.swing.JLabel lb_saldoAtual2;
     private javax.swing.JLabel lb_saldoAtual3;
     private javax.swing.JLabel lb_saldoAtual4;
-    private javax.swing.JPanel p_cliente;
+    private javax.swing.JMenu m_conectar;
+    private javax.swing.JMenu m_criarSala;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel p_oferta;
     private javax.swing.JPanel p_player1;
     private javax.swing.JPanel p_player1_offline;
