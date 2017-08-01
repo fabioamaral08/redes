@@ -38,25 +38,24 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
         p_servidor = new javax.swing.JPanel();
         sp_servidor = new javax.swing.JScrollPane();
         tb_servidor = new javax.swing.JTable();
-        bt_atualizar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         onButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tb_servidor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tb_servidor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "IP", "Porta", "Status"
+                "IP", "Porta UDP", "Porta TCP", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -72,22 +71,10 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
             tb_servidor.getColumnModel().getColumn(0).setResizable(false);
             tb_servidor.getColumnModel().getColumn(1).setResizable(false);
             tb_servidor.getColumnModel().getColumn(2).setResizable(false);
+            tb_servidor.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        bt_atualizar.setText("Atualizar");
-        bt_atualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_atualizarActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Ajuda");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
+        onButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         onButton.setText("Ligar");
         onButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,32 +86,20 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
         p_servidor.setLayout(p_servidorLayout);
         p_servidorLayout.setHorizontalGroup(
             p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_servidorLayout.createSequentialGroup()
+            .addGroup(p_servidorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(p_servidorLayout.createSequentialGroup()
-                        .addComponent(bt_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_servidorLayout.createSequentialGroup()
-                        .addComponent(onButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
-                .addGap(18, 18, 18)
-                .addComponent(sp_servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(sp_servidor)
+                    .addComponent(onButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         p_servidorLayout.setVerticalGroup(
             p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_servidorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(p_servidorLayout.createSequentialGroup()
-                        .addComponent(bt_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(onButton)))
-                    .addComponent(sp_servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(sp_servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(onButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -142,15 +117,8 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bt_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarActionPerformed
-        
-    }//GEN-LAST:event_bt_atualizarActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void onButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onButtonActionPerformed
+        //System.out.println(dS.getLocalPort() + "\n" + InetAddress.getLocalHost().getHostAddress());
         Thread t = new Thread(this);
         t.start();
     }//GEN-LAST:event_onButtonActionPerformed
@@ -208,8 +176,6 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_atualizar;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton onButton;
     private javax.swing.JPanel p_servidor;
     private javax.swing.JScrollPane sp_servidor;
