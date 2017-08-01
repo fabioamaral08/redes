@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class JogadorS {
     private InetAddress IP;
     private int porta;
-    private short status;   //0 - Disponivel, 1 - Criando partida, 2 - Jogando
+    private String status;   //0 - Disponivel, 1 - Criando partida, 2 - Jogando
     
     public JogadorS(String IP, int porta){
         try {
@@ -26,7 +26,7 @@ public class JogadorS {
             System.out.println("Erro no IP");
         }
         this.porta = porta;
-        status = 0;
+        status = "0";
     }
 
     public InetAddress getIP() {
@@ -45,11 +45,11 @@ public class JogadorS {
         this.porta = porta;
     }
 
-    public short getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(short status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

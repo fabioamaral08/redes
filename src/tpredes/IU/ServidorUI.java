@@ -5,17 +5,25 @@
  */
 package tpredes.IU;
 
+import Servidor.Servidor;
+import java.net.InetAddress;
+import javax.swing.table.DefaultTableModel;
+import Servidor.JogadorS;
+
 /**
  *
  * @author Foltran
  */
-public class Servidor extends javax.swing.JFrame {
+public class ServidorUI extends javax.swing.JFrame implements Runnable {
 
-    /**
-     * Creates new form Servidor
-     */
-    public Servidor() {
+    private Servidor server;
+
+    public ServidorUI() {
         initComponents();
+
+        server = new Servidor();
+        server.setUI(this);
+
     }
 
     /**
@@ -32,6 +40,7 @@ public class Servidor extends javax.swing.JFrame {
         tb_servidor = new javax.swing.JTable();
         bt_atualizar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        onButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,20 +88,28 @@ public class Servidor extends javax.swing.JFrame {
             }
         });
 
+        onButton.setText("Ligar");
+        onButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout p_servidorLayout = new javax.swing.GroupLayout(p_servidor);
         p_servidor.setLayout(p_servidorLayout);
         p_servidorLayout.setHorizontalGroup(
             p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_servidorLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(p_servidorLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(bt_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_servidorLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(61, 61, 61)))
+                        .addComponent(onButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
+                .addGap(18, 18, 18)
                 .addComponent(sp_servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -104,7 +121,9 @@ public class Servidor extends javax.swing.JFrame {
                     .addGroup(p_servidorLayout.createSequentialGroup()
                         .addComponent(bt_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
+                        .addGroup(p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(onButton)))
                     .addComponent(sp_servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -128,9 +147,30 @@ public class Servidor extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_atualizarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void onButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onButtonActionPerformed
+        Thread t = new Thread(this);
+        t.start();
+    }//GEN-LAST:event_onButtonActionPerformed
+    
+    public void atualiza(){
+        DefaultTableModel model = (DefaultTableModel) this.tb_servidor.getModel();
+        Object[] ob = new Object[3];
+
+        model.setNumRows(0);
+        for (JogadorS j : server.getPlayers()) {
+            InetAddress ip = j.getIP();
+            ob[0] = ip.getHostAddress();
+            ob[1] = j.getPorta();
+            ob[2] = j.getStatus();
+
+            model.addRow(ob);
+
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -148,20 +188,21 @@ public class Servidor extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Servidor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Servidor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Servidor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Servidor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Servidor().setVisible(true);
+                new ServidorUI().setVisible(true);
             }
         });
     }
@@ -169,8 +210,16 @@ public class Servidor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_atualizar;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton onButton;
     private javax.swing.JPanel p_servidor;
     private javax.swing.JScrollPane sp_servidor;
     private javax.swing.JTable tb_servidor;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+
+        server.escuta();
+
+    }
 }

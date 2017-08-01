@@ -13,108 +13,122 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import tpredes.IU.ServidorUI;
+
 
 /*
  *
  * @author Gustavoo
  */
-public class Servidor implements Runnable{
+public class Servidor implements Runnable {
 
     private final ArrayList<JogadorS> players;
     private DatagramSocket dS;
-    private DatagramPacket dt;
-    private byte[] resposta;
-    
-    public Servidor (){        
+    private DatagramPacket dt; 
+    private String mensagem;
+    private ServidorUI serverui;
+
+    public Servidor() {
         try {
-            this.resposta = new byte[1024];
-            this.dS = new DatagramSocket();
-            this.dt = new DatagramPacket(this.resposta, this.resposta.length);
+
+            this.dS = new DatagramSocket(54321);
+
+            try {
+                System.out.println(dS.getLocalPort() + "\n" + InetAddress.getLocalHost().getHostAddress());
+            } catch (UnknownHostException ex) {
+                System.out.println("Erro print construtor");
+            }
+
         } catch (SocketException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro Construtor");
         }
-        this.players = new ArrayList();   
+        this.players = new ArrayList();
+    }
+    
+    public void setUI(ServidorUI serverui){
+        this.serverui = serverui;
     }
 
     public ArrayList<JogadorS> getPlayers() {
         return players;
     }
 
-
-
     public ArrayList getDisponiveis() {
         ArrayList<JogadorS> dPlayers = new ArrayList();
-        
-        for (JogadorS j : this.players){
-            if (j.getStatus() == 0){
+
+        for(JogadorS j : this.players){
+            if(j.getStatus().equals("0")){
                 dPlayers.add(j);
             }
         }
         return dPlayers;
     }
-    
+
     public ArrayList getCriadores() {
         ArrayList<JogadorS> cPlayers = new ArrayList();
-        
-        for (JogadorS j: this.players){
-            if (j.getStatus() == 1){
+
+        for(JogadorS j : this.players){
+            if(j.getStatus().equals("1")){
                 cPlayers.add(j);
             }
         }
         return cPlayers;
     }
-    
-    
 
-    public void alteraStatus(short estado, InetAddress ip) {
-        JogadorS jS;
-        for(JogadorS j: this.players){
-            
+    public void alteraStatus(String estado, InetAddress ip) {
+        for (JogadorS j : this.players) {
+            if (j.getIP().getHostAddress().equals(ip.getHostAddress())) {
+                j.setStatus(estado);
+                return;
+            }
         }
 
     }
 
-
-
     public JogadorS getPlayer(String ip) {
         for (JogadorS p : this.players) {
-            if (p.equals(ip)) {
+            if (p.getIP().getHostAddress().equals(ip)) {
                 return p;
             }
         }
         return null;
     }
-    
-    public void escuta(){
-        
-        try {
-            String print;
-            boolean fim = true;
-            dS.receive(dt);
-            
-            Thread t = new Thread((Runnable) this);
-            t.start();
-        } catch (IOException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+
+    public void escuta() {
+
+        while (true) {
+
+            try {
+                byte[] resposta = new byte[1024];
+                this.dt = new DatagramPacket(resposta, resposta.length);
+                dS.receive(dt);
+          
+                this.mensagem = new String(dt.getData());
+
+                verificaMensagem(dt);
+                
+                this.serverui.atualiza();
+
+            } catch (IOException ex) {
+                System.out.println("Erro Escuta");
+            }
         }
-        
-       
-    }
-    
-        @Override
-    public void run() {
-        
-        verificaMensagem(new String(dt.getData()));
+
     }
 
-    public void verificaMensagem(String mensagem) {
+    @Override
+    public void run() {
+        DatagramPacket dp = this.dt;
+        verificaMensagem(dp);
+    }
+
+    public void verificaMensagem(DatagramPacket dt) {
         StringTokenizer tk = new StringTokenizer(mensagem, " ");
         DatagramSocket ds;
         DatagramPacket dp;
         String ip;
         JogadorS jS;
+        byte[] resposta;
         int porta;
 
         switch (tk.nextToken()) {
@@ -131,19 +145,19 @@ public class Servidor implements Runnable{
                         ds = new DatagramSocket();
                         dp = new DatagramPacket(resposta, resposta.length, jS.getIP(), porta);
                         ds.send(dp); //Envia a resposta
-                        for(JogadorS j : disponiveis){  //Enquanto não percorrer todos os disponíveis
+                        for (JogadorS j : disponiveis) {  //Enquanto não percorrer todos os disponíveis
                             convbytes = "101 " + j.getIP().getHostAddress(); //Envia o IP dos jogadores
                             resposta = convbytes.getBytes();
                             ds = new DatagramSocket();
                             dp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);
                             ds.send(dp);
                         }
-                    } catch (Exception e) {
+                    } catch (NumberFormatException | IOException e) {
                         System.out.println("Não foi possível responder a solicitação 000");
                     }
                 }
+                break;
             case "001": //Novo Jogador Online
- 
                 ip = tk.nextToken(); //IP do novo jogador
                 jS = new JogadorS(ip, dt.getPort());
                 this.players.add(jS); //Add novo jogador online
@@ -164,22 +178,21 @@ public class Servidor implements Runnable{
                     }
 
                 }
-                
+                break;
+
             case "002": //Novo Status
-                try{
+                try {
                     InetAddress ip1 = dt.getAddress();
-                    short status = (short)Integer.parseInt(tk.nextToken());
+                    String status = tk.nextToken();
                     alteraStatus(status, ip1);
-                    
-                    
-                }
-                catch(Exception e) {
+
+                } catch (NumberFormatException e) {
                     System.out.println("Não foi possível atender a solicitação 002");
                 }
-                
+                break;
+            default:
+                System.out.println("Default");
         }
     }
 
-
-    
 }
