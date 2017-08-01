@@ -163,7 +163,7 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
         for (JogadorS j : server.getPlayers()) {
             InetAddress ip = j.getIP();
             ob[0] = ip.getHostAddress();
-            ob[1] = j.getPorta();
+            ob[1] = j.getPortaUDP();
             ob[2] = j.getStatus();
 
             model.addRow(ob);
