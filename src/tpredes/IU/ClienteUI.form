@@ -27,6 +27,21 @@
             <Property name="text" type="java.lang.String" value="Criar Sala"/>
           </Properties>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="m_convites">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Entrar Sala"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mi_convites">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Convites"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_convitesActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>

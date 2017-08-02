@@ -146,7 +146,7 @@ public class Servidor implements Runnable {
                         dp = new DatagramPacket(resposta, resposta.length, jS.getIP(), porta);
                         ds.send(dp); //Envia a resposta
                         for (JogadorS j : disponiveis) {  //Enquanto não percorrer todos os disponíveis
-                            convbytes = "101 " + j.getIP().getHostAddress(); //Envia o IP dos jogadores
+                            convbytes = "101 " + j.getIP().getHostAddress() +" " + j.getPortaUDP(); //Envia o IP dos jogadores
                             resposta = convbytes.getBytes();
                             ds = new DatagramSocket();
                             dp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);

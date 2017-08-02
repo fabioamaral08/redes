@@ -80,6 +80,8 @@ public class ClienteUI extends javax.swing.JFrame {
         m_conectar = new javax.swing.JMenu();
         mi_conectarServidor = new javax.swing.JMenuItem();
         m_criarSala = new javax.swing.JMenu();
+        m_convites = new javax.swing.JMenu();
+        mi_convites = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -554,6 +556,18 @@ public class ClienteUI extends javax.swing.JFrame {
         m_criarSala.setText("Criar Sala");
         menuBar.add(m_criarSala);
 
+        m_convites.setText("Entrar Sala");
+
+        mi_convites.setText("Convites");
+        mi_convites.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_convitesActionPerformed(evt);
+            }
+        });
+        m_convites.add(mi_convites);
+
+        menuBar.add(m_convites);
+
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -597,6 +611,10 @@ public class ClienteUI extends javax.swing.JFrame {
         Thread t = new Thread(this.cliUDP);
         t.start();
     }//GEN-LAST:event_mi_conectarServidorActionPerformed
+
+    private void mi_convitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_convitesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mi_convitesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -664,9 +682,11 @@ public class ClienteUI extends javax.swing.JFrame {
     private javax.swing.JLabel lb_saldoAtual3;
     private javax.swing.JLabel lb_saldoAtual4;
     private javax.swing.JMenu m_conectar;
+    private javax.swing.JMenu m_convites;
     private javax.swing.JMenu m_criarSala;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem mi_conectarServidor;
+    private javax.swing.JMenuItem mi_convites;
     private javax.swing.JPanel p_oferta;
     private javax.swing.JPanel p_player1;
     private javax.swing.JPanel p_player1_offline;
