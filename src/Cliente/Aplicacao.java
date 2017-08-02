@@ -1,5 +1,6 @@
 package Cliente;
 
+import Aplicacao.JogadorC;
 import java.net.*;
 import java.util.ArrayList;
 
