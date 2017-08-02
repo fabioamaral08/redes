@@ -65,6 +65,7 @@ public class ClienteUI extends javax.swing.JFrame {
         p_rdados = new javax.swing.JPanel();
         tf_rdados = new javax.swing.JTextField();
         btn_rdados = new javax.swing.JButton();
+        tf_rdados1 = new javax.swing.JTextField();
         p_oferta = new javax.swing.JPanel();
         lb_proprietario = new javax.swing.JLabel();
         cb_proprietario = new javax.swing.JComboBox<>();
@@ -230,14 +231,15 @@ public class ClienteUI extends javax.swing.JFrame {
         p_player3.setBackground(new java.awt.Color(255, 255, 204));
         p_player3.setLayout(new java.awt.CardLayout());
 
-        p_player3_offline.setBackground(new java.awt.Color(255, 255, 102));
+        p_player3_offline.setBackground(new java.awt.Color(255, 255, 100));
+        p_player3_offline.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 150, 50), 3));
         p_player3_offline.setPreferredSize(new java.awt.Dimension(250, 100));
 
         javax.swing.GroupLayout p_player3_offlineLayout = new javax.swing.GroupLayout(p_player3_offline);
         p_player3_offline.setLayout(p_player3_offlineLayout);
         p_player3_offlineLayout.setHorizontalGroup(
             p_player3_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+            .addGap(0, 174, Short.MAX_VALUE)
         );
         p_player3_offlineLayout.setVerticalGroup(
             p_player3_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,6 +249,7 @@ public class ClienteUI extends javax.swing.JFrame {
         p_player3.add(p_player3_offline, "player3_offline");
 
         p_player3_online.setBackground(new java.awt.Color(250, 250, 0));
+        p_player3_online.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 150, 50), 3));
 
         lb_player3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lb_player3.setText("Player3");
@@ -279,7 +282,7 @@ public class ClienteUI extends javax.swing.JFrame {
                         .addComponent(lb_saldo3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lb_saldoAtual3)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         p_player3_onlineLayout.setVerticalGroup(
             p_player3_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,14 +305,15 @@ public class ClienteUI extends javax.swing.JFrame {
         p_player4.setBackground(new java.awt.Color(204, 255, 204));
         p_player4.setLayout(new java.awt.CardLayout());
 
-        p_player4_offline.setBackground(new java.awt.Color(102, 102, 255));
+        p_player4_offline.setBackground(new java.awt.Color(100, 100, 255));
+        p_player4_offline.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 50, 100), 3, true));
         p_player4_offline.setPreferredSize(new java.awt.Dimension(250, 100));
 
         javax.swing.GroupLayout p_player4_offlineLayout = new javax.swing.GroupLayout(p_player4_offline);
         p_player4_offline.setLayout(p_player4_offlineLayout);
         p_player4_offlineLayout.setHorizontalGroup(
             p_player4_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+            .addGap(0, 174, Short.MAX_VALUE)
         );
         p_player4_offlineLayout.setVerticalGroup(
             p_player4_offlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,6 +323,7 @@ public class ClienteUI extends javax.swing.JFrame {
         p_player4.add(p_player4_offline, "player4_offline");
 
         p_player4_online.setBackground(new java.awt.Color(0, 0, 250));
+        p_player4_online.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 50, 100), 3, true));
         p_player4_online.setPreferredSize(new java.awt.Dimension(250, 100));
 
         lb_player4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -352,7 +357,7 @@ public class ClienteUI extends javax.swing.JFrame {
                         .addComponent(lb_saldo4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lb_saldoAtual4)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         p_player4_onlineLayout.setVerticalGroup(
             p_player4_onlineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,24 +384,30 @@ public class ClienteUI extends javax.swing.JFrame {
         btn_rdados.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_rdados.setText("Rolar Dados!");
 
+        tf_rdados1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout p_rdadosLayout = new javax.swing.GroupLayout(p_rdados);
         p_rdados.setLayout(p_rdadosLayout);
         p_rdadosLayout.setHorizontalGroup(
             p_rdadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_rdadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tf_rdados)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tf_rdados, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tf_rdados1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_rdados)
                 .addContainerGap())
         );
         p_rdadosLayout.setVerticalGroup(
             p_rdadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_rdadosLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(p_rdadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tf_rdados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_rdados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(7, 7, 7)
+                .addGroup(p_rdadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(p_rdadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tf_rdados1)
+                        .addComponent(btn_rdados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tf_rdados))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -514,7 +525,7 @@ public class ClienteUI extends javax.swing.JFrame {
                     .addComponent(p_player3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(p_player4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(p_rdados, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p_rdados, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(p_oferta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -648,5 +659,6 @@ public class ClienteUI extends javax.swing.JFrame {
     private javax.swing.JPanel p_rdados;
     private javax.swing.JTextField tf_oferta;
     private javax.swing.JTextField tf_rdados;
+    private javax.swing.JTextField tf_rdados1;
     // End of variables declaration//GEN-END:variables
 }
