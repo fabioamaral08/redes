@@ -5,6 +5,8 @@
  */
 package tpredes.IU;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Foltran
@@ -519,6 +521,11 @@ public class ClienteUI extends javax.swing.JFrame {
         );
 
         m_conectar.setText("Conectar");
+        m_conectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_conectarActionPerformed(evt);
+            }
+        });
         menuBar.add(m_conectar);
 
         m_criarSala.setText("Criar Sala");
@@ -551,6 +558,11 @@ public class ClienteUI extends javax.swing.JFrame {
     private void btn_goActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_goActionPerformed
+
+    private void m_conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_conectarActionPerformed
+        String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
+        
+    }//GEN-LAST:event_m_conectarActionPerformed
 
     /**
      * @param args the command line arguments
