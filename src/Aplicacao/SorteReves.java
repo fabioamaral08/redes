@@ -9,7 +9,6 @@ package Aplicacao;
  *
  * @author fabio
  */
-public abstract class Casa {
+public class SorteReves extends Casa{
     
-    public abstract void aplicaConsequencia(JogadorC j);
 }
