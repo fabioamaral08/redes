@@ -173,7 +173,7 @@ public class Servidor implements Runnable {
 
                 for (JogadorS j : criadores) {
                     try {
-                        porta = j.getPorta();
+                        porta = j.getPortaUDP();
                         String convbytes = "102 " //Novo Jogador Online
                                 + ip;
                         resposta = convbytes.getBytes();

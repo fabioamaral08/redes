@@ -5,6 +5,9 @@
  */
 package tpredes.IU;
 
+import Cliente.ClienteUDP;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Foltran
@@ -14,6 +17,7 @@ public class ClienteUI extends javax.swing.JFrame {
     /**
      * Creates new form Cliente2UI
      */
+    private ClienteUDP cliUDP;
     public ClienteUI() {
         initComponents();
     }
@@ -74,6 +78,7 @@ public class ClienteUI extends javax.swing.JFrame {
         btn_go = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         m_conectar = new javax.swing.JMenu();
+        mi_conectarServidor = new javax.swing.JMenuItem();
         m_criarSala = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -530,6 +535,20 @@ public class ClienteUI extends javax.swing.JFrame {
         );
 
         m_conectar.setText("Conectar");
+        m_conectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_conectarActionPerformed(evt);
+            }
+        });
+
+        mi_conectarServidor.setText("Conectar ao servidor");
+        mi_conectarServidor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_conectarServidorActionPerformed(evt);
+            }
+        });
+        m_conectar.add(mi_conectarServidor);
+
         menuBar.add(m_conectar);
 
         m_criarSala.setText("Criar Sala");
@@ -562,6 +581,22 @@ public class ClienteUI extends javax.swing.JFrame {
     private void btn_goActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_goActionPerformed
+
+    private void m_conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_conectarActionPerformed
+        
+    }//GEN-LAST:event_m_conectarActionPerformed
+
+    private void mi_conectarServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_conectarServidorActionPerformed
+        String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
+        int porta = Integer.parseInt(JOptionPane.showInputDialog(this, "Insira a porta do servidor:"));
+        
+        this.cliUDP  = new ClienteUDP();
+        
+        this.cliUDP.conectaServer(ip, porta);
+        
+        Thread t = new Thread(this.cliUDP);
+        t.start();
+    }//GEN-LAST:event_mi_conectarServidorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -631,6 +666,7 @@ public class ClienteUI extends javax.swing.JFrame {
     private javax.swing.JMenu m_conectar;
     private javax.swing.JMenu m_criarSala;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem mi_conectarServidor;
     private javax.swing.JPanel p_oferta;
     private javax.swing.JPanel p_player1;
     private javax.swing.JPanel p_player1_offline;

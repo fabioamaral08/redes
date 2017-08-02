@@ -125,14 +125,15 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
     
     public void atualiza(){
         DefaultTableModel model = (DefaultTableModel) this.tb_servidor.getModel();
-        Object[] ob = new Object[3];
+        Object[] ob = new Object[4];
 
         model.setNumRows(0);
         for (JogadorS j : server.getPlayers()) {
             InetAddress ip = j.getIP();
             ob[0] = ip.getHostAddress();
-            ob[1] = j.getPorta();
-            ob[2] = j.getStatus();
+            ob[1] = j.getPortaUDP();
+            ob[2] = j.getPortaTCP();
+            ob[3] = j.getStatus();
 
             model.addRow(ob);
 

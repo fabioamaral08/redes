@@ -16,16 +16,17 @@ import java.util.logging.Logger;
  */
 public class JogadorS {
     private InetAddress IP;
-    private int porta;
+    private int portaUDP;
+    private int portaTCP;
     private String status;   //0 - Disponivel, 1 - Criando partida, 2 - Jogando
     
-    public JogadorS(String IP, int porta){
+    public JogadorS(String IP, int portaUDP){
         try {
             this.IP = InetAddress.getByName(IP);
         } catch (UnknownHostException ex) {
             System.out.println("Erro no IP");
         }
-        this.porta = porta;
+        this.portaUDP = portaUDP;
         status = "0";
     }
 
@@ -37,13 +38,22 @@ public class JogadorS {
         this.IP = IP;
     }
 
-    public int getPorta() {
-        return porta;
+    public int getPortaUDP() {
+        return portaUDP;
     }
 
-    public void setPorta(int porta) {
-        this.porta = porta;
+    public void setPortaUDP(int portaUDP) {
+        this.portaUDP = portaUDP;
     }
+
+    public int getPortaTCP() {
+        return portaTCP;
+    }
+
+    public void setPortaTCP(int portaTCP) {
+        this.portaTCP = portaTCP;
+    }
+    
 
     public String getStatus() {
         return status;

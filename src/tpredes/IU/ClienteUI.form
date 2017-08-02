@@ -8,6 +8,19 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Conectar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="m_conectarActionPerformed"/>
+          </Events>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mi_conectarServidor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Conectar ao servidor"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_conectarServidorActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="m_criarSala">
           <Properties>
