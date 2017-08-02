@@ -84,6 +84,14 @@ public class Servidor implements Runnable {
         }
 
     }
+    
+    public void removePlayer (String ip){
+       for (JogadorS p : this.players) {
+            if (p.getIP().getHostAddress().equals(ip)) {
+                this.players.remove(p);
+            }
+        } 
+    }
 
     public JogadorS getPlayer(String ip) {
         for (JogadorS p : this.players) {
@@ -190,6 +198,15 @@ public class Servidor implements Runnable {
                     System.out.println("Não foi possível atender a solicitação 002");
                 }
                 break;
+                
+            case "070":
+                try{
+                   ip = dt.getAddress().toString();
+                   removePlayer(ip);                    
+                    
+                } catch (Exception e){
+                    System.out.println("Não foi possível atender a solicitação 007");
+                }
             default:
                 System.out.println("Default");
         }
