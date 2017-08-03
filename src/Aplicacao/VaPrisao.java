@@ -10,5 +10,11 @@ package Aplicacao;
  * @author fabio
  */
 public class VaPrisao extends Casa{
+
+    @Override
+    public void aplicaConsequencia(JogadorC j) {
+        j.setPreso(true);
+        j.setPos(10);
+    }
     
 }

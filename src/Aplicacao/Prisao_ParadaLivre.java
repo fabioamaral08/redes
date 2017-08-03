@@ -10,5 +10,9 @@ package Aplicacao;
  * @author fabio
  */
 public class Prisao_ParadaLivre extends Casa {
+
+    @Override
+    public void aplicaConsequencia(JogadorC j) {
+    }
     
 }
