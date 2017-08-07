@@ -1,4 +1,23 @@
 /*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -134,45 +153,7 @@ public class Servidor implements Runnable {
 
         }
 
-    }
 
-    @Override
-    public void run() {
-        
-        verificaMensagem(msg);
-    }
-
-    public void verificaMensagem(String msg) {
-        System.out.println("++"+msg);
-        StringTokenizer tk = new StringTokenizer(msg, " ");
-        String ip;
-        JogadorS jS;
-        byte[] resposta;
-        int porta;
-        DataOutputStream outToClient;
-        try {
-            outToClient = new DataOutputStream(this.connect.getOutputStream());
-
-<<<<<<< HEAD
-            switch (tk.nextToken()) {
-                case "000": //Nova Sala
-                    ArrayList<JogadorS> disponiveis = getDisponiveis();
-                    ip = tk.nextToken();
-                    jS = getPlayer(ip);
-                    if (jS != null) {
-                        try {
-                            porta = Integer.valueOf(tk.nextToken());
-                            String convbytes = "100 " //qntdade de jogadores disponiveis
-                                    + Integer.toString(disponiveis.size());
-
-                            outToClient.writeBytes(convbytes);
-                            for (JogadorS j : disponiveis) {  //Enquanto não percorrer todos os disponíveis
-                                convbytes = "101 " + j.getIP().getHostAddress() + " " + j.getPortaUDP(); //Envia o IP dos jogadores
-                                outToClient.writeBytes(convbytes);
-                            }
-                        } catch (NumberFormatException | IOException e) {
-                            System.out.println("Não foi possível responder a solicitação 000");
-=======
         switch (tk.nextToken()) { 
             case "000": //Nova Sala
                 ArrayList<JogadorS> disponiveis = getDisponiveis();
@@ -193,8 +174,7 @@ public class Servidor implements Runnable {
                             ds = new DatagramSocket();
                             dp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);
                             ds.send(dp);
->>>>>>> origin/master
-                        }
+/*
                     }
                     break;
                 case "001": //Novo Jogador Online
