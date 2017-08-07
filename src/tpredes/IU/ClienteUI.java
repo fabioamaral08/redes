@@ -6,6 +6,7 @@
 package tpredes.IU;
 
 import Cliente.ClienteTCP;
+import Cliente.ClienteUDP;
 import javax.swing.JOptionPane;
 
 /**
@@ -609,7 +610,7 @@ public class ClienteUI extends javax.swing.JFrame {
         String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
         int porta = Integer.parseInt(JOptionPane.showInputDialog(this, "Insira a porta do servidor:"));
 
-        this.cliUDP  = new ClienteTCP();
+        //this.cliUDP  = new ClienteTCP();
         
         //manda cliUDP escutar;
         int portaUDP = this.cliUDP.getPorta();
