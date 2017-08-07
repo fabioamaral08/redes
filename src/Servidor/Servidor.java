@@ -139,7 +139,7 @@ public class Servidor implements Runnable {
         byte[] resposta;
         int porta;
 
-        switch (tk.nextToken()) {
+        switch (tk.nextToken()) { 
             case "000": //Nova Sala
                 ArrayList<JogadorS> disponiveis = getDisponiveis();
                 ip = tk.nextToken();
