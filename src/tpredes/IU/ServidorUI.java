@@ -121,6 +121,8 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
         //System.out.println(dS.getLocalPort() + "\n" + InetAddress.getLocalHost().getHostAddress());
         Thread t = new Thread(this);
         t.start();
+        //server.escuta();
+       
     }//GEN-LAST:event_onButtonActionPerformed
     
     public void atualiza(){
@@ -187,6 +189,6 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
     public void run() {
 
         server.escuta();
-
+        
     }
 }

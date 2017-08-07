@@ -18,8 +18,11 @@ public class ClienteUI extends javax.swing.JFrame {
      * Creates new form Cliente2UI
      */
     private ClienteUDP cliUDP;
+    private ClienteTCP cliTCP;
     public ClienteUI() {
         initComponents();
+        this.cliUDP  = new ClienteUDP();
+        this.cliTCP = new ClienteTCP();
     }
 
     /**
@@ -604,9 +607,10 @@ public class ClienteUI extends javax.swing.JFrame {
         String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
         int porta = Integer.parseInt(JOptionPane.showInputDialog(this, "Insira a porta do servidor:"));
         
-        this.cliUDP  = new ClienteUDP();
         
-        this.cliUDP.conectaServer(ip, porta);
+        //manda cliUDP escutar;
+        int portaUDP = this.cliUDP.getPorta();
+        this.cliTCP.conectaServer(ip, porta,portaUDP);
         
         Thread t = new Thread(this.cliUDP);
         t.start();
