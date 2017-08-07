@@ -154,6 +154,24 @@ public class Servidor implements Runnable {
         }
 
 
+<<<<<<< HEAD
+=======
+    @Override
+    public void run() {
+        DatagramPacket dp = this.dt;
+        verificaMensagem(dp);
+    }
+
+    public void verificaMensagem(DatagramPacket dt) {
+        StringTokenizer tk = new StringTokenizer(mensagem, " ");
+        DatagramSocket ds;
+        DatagramPacket dp;
+        String ip;
+        JogadorS jS;
+        byte[] resposta;
+        int porta;
+
+>>>>>>> origin/master
         switch (tk.nextToken()) { 
             case "000": //Nova Sala
                 ArrayList<JogadorS> disponiveis = getDisponiveis();
