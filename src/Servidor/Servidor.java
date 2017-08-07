@@ -153,6 +153,7 @@ public class Servidor implements Runnable {
         try {
             outToClient = new DataOutputStream(this.connect.getOutputStream());
 
+<<<<<<< HEAD
             switch (tk.nextToken()) {
                 case "000": //Nova Sala
                     ArrayList<JogadorS> disponiveis = getDisponiveis();
@@ -171,6 +172,28 @@ public class Servidor implements Runnable {
                             }
                         } catch (NumberFormatException | IOException e) {
                             System.out.println("Não foi possível responder a solicitação 000");
+=======
+        switch (tk.nextToken()) { 
+            case "000": //Nova Sala
+                ArrayList<JogadorS> disponiveis = getDisponiveis();
+                ip = tk.nextToken();
+                jS = getPlayer(ip);
+                if (jS != null) {
+                    try {
+                        porta = Integer.valueOf(tk.nextToken());
+                        String convbytes = "100 " //qntdade de jogadores disponiveis
+                                + Integer.toString(disponiveis.size());
+                        resposta = convbytes.getBytes();
+                        ds = new DatagramSocket();
+                        dp = new DatagramPacket(resposta, resposta.length, jS.getIP(), porta);
+                        ds.send(dp); //Envia a resposta
+                        for (JogadorS j : disponiveis) {  //Enquanto não percorrer todos os disponíveis
+                            convbytes = "101 " + j.getIP().getHostAddress() +" " + j.getPortaUDP(); //Envia o IP dos jogadores
+                            resposta = convbytes.getBytes();
+                            ds = new DatagramSocket();
+                            dp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);
+                            ds.send(dp);
+>>>>>>> origin/master
                         }
                     }
                     break;
