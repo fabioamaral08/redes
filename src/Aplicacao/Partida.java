@@ -198,4 +198,35 @@ public class Partida {
             j.setPos(novaPos);
         }
     }
+    
+    public void removeJog(JogadorC j){
+        this.jogadores.remove(j);
+    }
+    
+    public void fimTurno(){
+        this.jogadorVez = (short)(((int)this.jogadorVez+1)%(int)this.numJogadores);
+    }
+    
+    public short getJogadorVez(){
+        return this.jogadorVez;
+    }
+    
+    public void setDono(int prop, int dono){
+        Propriedade aux = (Propriedade)this.casaTab.get(prop);
+        aux.setDono(this.jogadores.get(dono));
+    }
+    
+    public void addCasa(int prop){
+        Propriedade aux = (Propriedade)this.casaTab.get(prop);
+        aux.constroi();
+    }
+    
+    public void conseqSR(int carta, int j){
+        JogadorC jogador = this.jogadores.get(j);
+        
+    }
+    
+    public JogadorC getJogador(int j){
+        return this.jogadores.get(j);
+    }
 }

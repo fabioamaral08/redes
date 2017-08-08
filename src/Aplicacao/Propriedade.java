@@ -34,4 +34,11 @@ public class Propriedade extends Casa{
         }
     }
     
+    public void setDono(JogadorC j){
+        tp.setDono(j);
+    }
+    
+    public void constroi(){
+        tp.construir();
+    }
 }

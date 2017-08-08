@@ -13,11 +13,13 @@ public class TituloPropriedade {
     private JogadorC dono;
     private int aluguel;
     private int valor;
+    private int numCasas;
 
     public TituloPropriedade(int aluguel, int valor) {
         this.dono = null;
         this.aluguel = aluguel;
         this.valor = valor;
+        this.numCasas = 0;
     }
 
     public JogadorC getDono() {
@@ -38,5 +40,12 @@ public class TituloPropriedade {
 
     public int getValor() {
         return valor;
+    }
+    
+    public void construir(){
+        if(numCasas < 5){
+            numCasas++;
+            aluguel += 20;
+        }
     }
 }
