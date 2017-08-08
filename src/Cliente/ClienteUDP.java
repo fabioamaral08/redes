@@ -21,6 +21,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import tpredes.IU.ClienteUI;
 
 /**
  *
@@ -32,10 +33,10 @@ public class ClienteUDP implements Runnable{
     
     private int status;
     
-    public ClienteUDP(){
+    public ClienteUDP(ClienteUI c){
         try {
             this.ds = new DatagramSocket();
-            
+            this.app = new Aplicacao(c);
         } catch (SocketException ex) {
             Logger.getLogger(ClienteUDP.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -46,13 +47,13 @@ public class ClienteUDP implements Runnable{
     public void conectaServer(String ip, int portaS){
         try {
             this.status = 0; //Online
-            ds = new DatagramSocket();
+          //  ds = new DatagramSocket();
             byte[] msg = new byte[1024];
             String texto = "001 "+InetAddress.getLocalHost().getHostAddress();
             msg = texto.getBytes();
             DatagramPacket dp = new DatagramPacket(msg, msg.length,InetAddress.getByName(ip), portaS);
             this.app.setIpServer(ip);
-            this.app.setportaServer(portaS);
+            this.app.setPortaServer(portaS);
             ds.send(dp);
             ds.close();
 
@@ -63,11 +64,19 @@ public class ClienteUDP implements Runnable{
     }
 
     
-    public void criarSala (String ip, int portaS, int aberto){
+    public void criarSala (int aberto){
         int i;
+        String ip = this.app.getIpServer();
+        int portaS = this.app.getPortaServer();
         this.status = 2;//Criando Sala
+        
+        if(aberto == 0){
+            this.app.setSenha(JOptionPane.showInputDialog(null,"Digite a senha"));
+        }else{
+            this.app.setSenha("null");
+        }
         try {
-            ds = new DatagramSocket();
+          //  ds = new DatagramSocket();
             byte[] msg = new byte[1024];
             String texto = "000 "+ InetAddress.getLocalHost().getHostAddress();
             DatagramPacket dp = new DatagramPacket(msg, msg.length, InetAddress.getByName(ip), portaS);                       
@@ -90,7 +99,7 @@ public class ClienteUDP implements Runnable{
         
             
         try {
-            ds = new DatagramSocket();
+           // ds = new DatagramSocket();
             byte[] msg = new byte[1024];
             String texto = "070";
             msg = texto.getBytes();
@@ -128,7 +137,7 @@ public class ClienteUDP implements Runnable{
                     porta = Integer.parseInt(tk.nextToken());
                     texto = "010 "+ app.isAberto();
                     resp = texto.getBytes();
-                    ds = new DatagramSocket();
+                   // ds = new DatagramSocket();
                     dataP = new DatagramPacket (resp, resp.length, ip, porta);
                     ds.send(dp);
                     ds.close();
@@ -137,7 +146,7 @@ public class ClienteUDP implements Runnable{
                     break;
                     
                 case "110": // Recebendo resposta do convite
-                    if (app.getSenha() ==  tk.nextToken()){
+                    if (app.getSenha().equals(tk.nextToken())){
                         ArrayList<JogadorC> jC = app.getJogadores();
                         int n = jC.size();
                         resp = new byte[1024];
@@ -149,7 +158,7 @@ public class ClienteUDP implements Runnable{
                         
                         resp = texto.getBytes();
                         dataP = new DatagramPacket(resp, resp.length, ip, porta);
-                        ds = new DatagramSocket();
+                      //  ds = new DatagramSocket();
                         ds.send(dp);
                         texto = "120 ";
                         for (JogadorC j : jC){
@@ -161,7 +170,7 @@ public class ClienteUDP implements Runnable{
                             String aux = "021 "+dp.getAddress()+" "+dp.getPort();
                             resp = new byte[1024];
                             resp = aux.getBytes();
-                            ds = new DatagramSocket();
+                         //   ds = new DatagramSocket();
                             dataP = new DatagramPacket(resp, resp.length, ip, porta);
                             ds.send(dp);
                             
@@ -169,7 +178,7 @@ public class ClienteUDP implements Runnable{
                         
                         resp = new byte[1024];
                         resp = texto.getBytes();
-                        ds = new DatagramSocket();
+                    //    ds = new DatagramSocket();
                         dataP = new DatagramPacket(resp, resp.length, ip, porta);
                         ds.send(dp);
                         
@@ -179,7 +188,7 @@ public class ClienteUDP implements Runnable{
                         texto = "010 "+ n;
                         resp = texto.getBytes();
                         dataP = new DatagramPacket(resp, resp.length, ip, porta);
-                        ds = new DatagramSocket();
+                  //      ds = new DatagramSocket();
                         ds.send(dp);
                     }
 
@@ -190,7 +199,7 @@ public class ClienteUDP implements Runnable{
                         porta = dp.getPort();
                         texto = "010 -1 1";//Senha errada
                         resp = texto.getBytes();
-                        ds = new DatagramSocket();
+                     //   ds = new DatagramSocket();
                         dataP = new DatagramPacket(resp, resp.length, ip, porta);
                         ds.send(dp);
                         ds.close();
@@ -198,8 +207,12 @@ public class ClienteUDP implements Runnable{
                     break;
                     
                 case "010": //Recebendo convite
+                    String ipConv  = dp.getAddress().getHostName();
+                    int portaConv = dp.getPort();
+                    String senha = tk.nextToken();
+                    Convite c = new Convite(ipConv,portaConv,senha);
                     
-                    
+                    this.app.novoConvite(c);
                     break;
                 
                 case "030": //Saida
@@ -231,16 +244,16 @@ public class ClienteUDP implements Runnable{
                     break;
                     
                 case "043" : //Propriedades
-                    int prop = Integer.parseInt(tk.nextToken());
-                    this.app.addConstrucao (prop);
+                    int propriedade = Integer.parseInt(tk.nextToken());
+                    this.app.addConstrucao (propriedade);
                     
                     break;
                     
                 case "044" : //Sorte ou revés num carta
                     int carta = Integer.parseInt(tk.nextToken());
-                    int n = Integer.parseInt(tk.nextToken());
+                    int num = Integer.parseInt(tk.nextToken());
                     
-                    this.app.conseqCartaSR (carta, n);
+                    this.app.conseqCartaSR (carta, num);
                     
                     break;
                     
@@ -257,11 +270,11 @@ public class ClienteUDP implements Runnable{
                     
                 case "062": //
                     this.status = 0; //Online
-                    ds = new DatagramSocket();
+                 //   ds = new DatagramSocket();
                     resp = new byte[1024];
                     texto = "002 0";
                     resp = texto.getBytes();
-                    dp = new DatagramPacket(resp, resp.length, this.app.getipServer(), this.app.getportaServer());
+                    dp = new DatagramPacket(resp, resp.length, InetAddress.getByName(this.app.getIpServer()), this.app.getPortaServer());
                     ds.send(dp);   
                     JOptionPane.showMessageDialog(null, "Fim de Partida");
 
@@ -270,11 +283,11 @@ public class ClienteUDP implements Runnable{
                     
                 case "063":
                     this.status = 1; //Jogando
-                    ds = new DatagramSocket();
+                    //ds = new DatagramSocket();
                     resp = new byte[1024];
                     texto = "002 1";
                     resp = texto.getBytes();
-                    dp = new DatagramPacket(resp, resp.length, this.app.getipServer(), this.app.getportaServer());
+                    dp = new DatagramPacket(resp, resp.length, InetAddress.getByName(this.app.getIpServer()), this.app.getPortaServer());
                     ds.send(dp);
                     JOptionPane.showMessageDialog(null, "Inicio de Partida");
                     break;
@@ -300,7 +313,6 @@ public class ClienteUDP implements Runnable{
             
         try {
             
-            ds = new DatagramSocket();
             byte[] msg = new byte[1024];
             String texto = "040 "+ d1 + " " + d2;
             msg = texto.getBytes();
@@ -348,5 +360,25 @@ public class ClienteUDP implements Runnable{
 
     public int getPorta(){
         return this.ds.getPort();
+    }
+    
+    public void conctaSala(Convite c){
+        String s;
+        if(c.isSenha()){
+            s = JOptionPane.showInputDialog(null,"Digite a senha");
+        }else{
+            s = "null";
+        }
+        String msg = "110 "+ s;
+        byte[] mensagem = new byte[1024];
+        try {
+            DatagramPacket dp = new DatagramPacket(mensagem,mensagem.length,InetAddress.getByName(c.getIp()),c.getPorta());
+            
+            this.ds.send(dp);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ClienteUDP.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ClienteUDP.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

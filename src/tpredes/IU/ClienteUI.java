@@ -6,8 +6,11 @@
 package tpredes.IU;
 
 import Cliente.ClienteUDP;
+import Cliente.Convite;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,14 +23,17 @@ public class ClienteUI extends javax.swing.JFrame {
      */
     private ClienteUDP cliUDP;
     private boolean conectado;
+    private ArrayList<Convite> convites;
+    
 
     public ClienteUI() {
         initComponents();
 
         CardLayout card = (CardLayout) this.p_raiz.getLayout();
         card.show(this.p_raiz, "vazio");
-        
-        this.cliUDP = new ClienteUDP();
+
+        this.cliUDP = new ClienteUDP(this);
+        this.convites = new ArrayList();
 
     }
 
@@ -543,12 +549,12 @@ public class ClienteUI extends javax.swing.JFrame {
                     .addComponent(p_rdados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(p_clienteLayout.createSequentialGroup()
                         .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(p_player3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(p_player3, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(p_player1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(p_player2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(p_player4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                            .addComponent(p_player4, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)))
                     .addComponent(p_oferta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -670,6 +676,11 @@ public class ClienteUI extends javax.swing.JFrame {
         m_criarSala.setText("Criar Sala");
 
         mi_novaSala.setText("Nova sala");
+        mi_novaSala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_novaSalaActionPerformed(evt);
+            }
+        });
         m_criarSala.add(mi_novaSala);
 
         mi_comecarPartida.setText("Começar Partida");
@@ -741,19 +752,40 @@ public class ClienteUI extends javax.swing.JFrame {
     private void mi_convitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_convitesActionPerformed
         CardLayout card = (CardLayout) this.p_raiz.getLayout();
         card.show(this.p_raiz, "sala");
+        DefaultTableModel model = (DefaultTableModel) this.t_sala.getModel();
+        model.setRowCount(0);
+        Object[] ob = new Object[2];
+        for (Convite c : convites) {
+            ob[0] = c.getIp();
+            ob[1] = c.getPorta();
 
-
+            model.addRow(ob);
+        }
     }//GEN-LAST:event_mi_convitesActionPerformed
 
     private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrarActionPerformed
         CardLayout card = (CardLayout) this.p_raiz.getLayout();
         card.show(this.p_raiz, "cliente");
+
+        DefaultTableModel model = (DefaultTableModel) this.t_sala.getModel();
+
+        int i = this.t_sala.getSelectedRow();
+
+        this.cliUDP.conctaSala(this.convites.get(i));
     }//GEN-LAST:event_btn_entrarActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         CardLayout card = (CardLayout) this.p_raiz.getLayout();
         card.show(this.p_raiz, "vazio");
     }//GEN-LAST:event_btn_cancelarActionPerformed
+
+    private void mi_novaSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_novaSalaActionPerformed
+        int opc = JOptionPane.showConfirmDialog(this, "Deseja colocar senha na sala?");
+        if (opc == 2) {
+            return;
+        }
+        this.cliUDP.criarSala(opc);
+    }//GEN-LAST:event_mi_novaSalaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -856,7 +888,16 @@ public class ClienteUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void setServerFalse() {
-       this.conectado = false;
-       this.mi_conectarServidor.setText("Conectar ao Servidor");
+        this.conectado = false;
+        this.mi_conectarServidor.setText("Conectar ao Servidor");
     }
+
+    public void setDados(boolean estado) {
+        this.btn_rdados.setEnabled(estado);
+    }
+
+    public void addConvite(Convite c) {
+        this.convites.add(c);
+    }
+
 }

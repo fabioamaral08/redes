@@ -21,6 +21,12 @@ public class Aplicacao implements Runnable {
 
     private ClienteUI ui;
 
+    public Aplicacao(ClienteUI ui) {
+        this.ui = ui;
+    }
+    
+    
+
     @Override
     public void run() {
 
@@ -103,5 +109,21 @@ public class Aplicacao implements Runnable {
         this.portaServer = portaServer;
     }
     
+    public void setSenha(String senha){
+        this.senha = senha;
+    }
     
+    public void removeJog(int i){
+        this.partida.removeJog(i);
+        if (i < this.meuNum){
+            this.meuNum -=1;
+        }
+    }
+    public void setDados(int d1, int d2){
+        this.partida.rolaDados(d1,d2);
+    }
+    
+    public void novoConvite(Convite c){
+        this.ui.addConvite(c);
+    }
 }

@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  */
 public class JogadorC {
     private InetAddress ip;
+    private int porta;
     private int num;
     private int capital;
     private int pos;
@@ -69,5 +70,12 @@ public class JogadorC {
     
     public String getIP(){
         return this.ip.getHostAddress();
+    }
+    
+    public int getPorta(){
+        return this.porta;
+    }
+    public void setPorta(int porta){
+        this.porta = porta;
     }
 }
