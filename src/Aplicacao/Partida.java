@@ -179,6 +179,7 @@ public class Partida {
     
     public void comecar(){
         this.numJogadores =( short) this.jogadores.size();
+        initTabuleiro();
     }
     
     public void proxJogador(){
