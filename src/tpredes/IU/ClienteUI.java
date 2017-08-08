@@ -5,6 +5,7 @@
  */
 package tpredes.IU;
 
+import Cliente.ClienteTCP;
 import Cliente.ClienteUDP;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -18,12 +19,17 @@ public class ClienteUI extends javax.swing.JFrame {
     /**
      * Creates new form Cliente2UI
      */
+
     private ClienteUDP cliUDP;
+    private ClienteTCP cliTCP;
+
     public ClienteUI() {
         initComponents();
         
         CardLayout card = (CardLayout) this.p_raiz.getLayout();
         card.show(this.p_raiz, "vazio");
+        
+        
     }
 
     /**
@@ -719,10 +725,12 @@ public class ClienteUI extends javax.swing.JFrame {
     private void mi_conectarServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_conectarServidorActionPerformed
         String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
         int porta = Integer.parseInt(JOptionPane.showInputDialog(this, "Insira a porta do servidor:"));
+
+        //this.cliUDP  = new ClienteTCP();
         
-        this.cliUDP  = new ClienteUDP();
-        
-        this.cliUDP.conectaServer(ip, porta);
+        //manda cliUDP escutar;
+        int portaUDP = this.cliUDP.getPorta();
+        this.cliTCP.conectaServer(ip, porta,portaUDP);
         
         Thread t = new Thread(this.cliUDP);
         t.start();

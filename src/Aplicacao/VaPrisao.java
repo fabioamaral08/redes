@@ -9,7 +9,12 @@ package Aplicacao;
  *
  * @author fabio
  */
-public abstract class Casa {
+public class VaPrisao extends Casa{
+
+    @Override
+    public void aplicaConsequencia(JogadorC j) {
+        j.setPreso(true);
+        j.setPos(10);
+    }
     
-    public abstract void aplicaConsequencia(JogadorC j);
 }

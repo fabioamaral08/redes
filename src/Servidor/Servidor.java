@@ -1,4 +1,5 @@
 /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -139,7 +140,7 @@ public class Servidor implements Runnable {
         byte[] resposta;
         int porta;
 
-        switch (tk.nextToken()) {
+        switch (tk.nextToken()) { 
             case "000": //Nova Sala
                 ArrayList<JogadorS> disponiveis = getDisponiveis();
                 ip = tk.nextToken();

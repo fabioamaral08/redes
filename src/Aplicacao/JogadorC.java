@@ -17,14 +17,17 @@ import java.util.logging.Logger;
 public class JogadorC {
     private InetAddress ip;
     private int num;
-    
+    private int capital;
     private int pos;
     private boolean preso;
+    private boolean cartaPrisao;
     
     public JogadorC(String ip, int num){
         this.num = num;
+        this.capital = 2500;
         this.pos = 0;
         this.preso = false;
+        this.cartaPrisao = false;
         try {
             this.ip = InetAddress.getByName(ip);
         } catch (UnknownHostException ex) {
@@ -46,6 +49,22 @@ public class JogadorC {
 
     public void setPreso(boolean preso) {
         this.preso = preso;
+    }
+
+    public int getCapital() {
+        return capital;
+    }
+
+    public void alteraCapital(int capital) {
+        this.capital += capital;
+    }
+
+    public boolean isCartaPrisao() {
+        return cartaPrisao;
+    }
+
+    public void setCartaPrisao(boolean cartaPrisao) {
+        this.cartaPrisao = cartaPrisao;
     }
     
     

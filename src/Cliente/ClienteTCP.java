@@ -5,8 +5,19 @@
  */
 package Cliente;
 
+import Aplicacao.JogadorC;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
+import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,57 +27,104 @@ import java.util.logging.Logger;
  * @author fabio
  */
 public class ClienteTCP implements Runnable{
-    private ServerSocket servSoc;
-
-    public ClienteTCP() {
+    private DatagramSocket ds;
+    private Socket soc;
+    private int status;
+    
+    
+    public void conectaServer(String ip, int portaS, int portaUDP){
         try {
-            this.servSoc = new ServerSocket();
+            this.soc = new Socket(ip, portaS);
+            byte[] msg = new byte[1024];
+
+            DataOutputStream serv = new DataOutputStream(this.soc.getOutputStream());
+            String texto = "001 "+InetAddress.getLocalHost().getHostAddress() + " " + portaUDP; //Mudar
+
+            serv.writeBytes(texto);
+            this.soc.close();
+             
+        } catch (SocketException ex) {
+            System.out.println("Erro ao criar Socket UDP do cliente");
         } catch (IOException ex) {
-            System.out.println("Erro ao criar ServerSocket do cliete");
+            System.out.println("Erro ao enviar pacote UDP");
+        }
+    }
+
+    
+    public void criarSala (String ip, int porta, int aberto){
+        int i;
+        this.status = 2;//Criando S
+        try {
+           // this.soc = new Socket(ip, porta);
+                       
+            String resp;
+            String texto = "000 "+ InetAddress.getLocalHost().getHostAddress() + " "+
+                    //this.porta;
+            DataOutputStream serv = new DataOutputStream(this.soc.getOutputStream());
+            serv.writeBytes(texto);
+            
+            BufferedReader br = new BufferedReader(new InputStreamReader (this.soc.getInputStream()));
+            
+            resp = br.readLine();
+            StringTokenizer tk = new StringTokenizer(resp, " ");
+            
+            if (tk.nextToken() == "100"){ //Mensagem de qntd de jogadores disponiveis
+                
+                int n = Integer.parseInt(tk.nextToken()); 
+                
+                for (i = 0; i< n; i++){  //Enquanto não chegar todos os jogadores
+                    
+                    br = new BufferedReader(new InputStreamReader (this.soc.getInputStream()));
+                    resp = br.readLine();
+                    tk = new StringTokenizer(resp, " ");
+                    
+                    if (tk.nextToken() == "101"){
+                        texto = "010 " + aberto;
+                        Socket sk = new Socket (tk.nextToken(), Integer.parseInt(tk.nextToken()));
+                        serv = new DataOutputStream(sk.getOutputStream());
+                        serv.writeBytes(texto);
+                    }
+                    
+                }
+                
+            }
+            
+            this.soc.close();
+                        
+            
+
+        } catch (SocketException ex) {
+            System.out.println("Erro ao criar Socket do cliente");
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ClienteTCP.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ClienteTCP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    // Criar uma opção de sair na interface !!!
+    public void encerrarConexao (){
+        try {
+            
+            DataOutputStream serv = new DataOutputStream (this.soc.getOutputStream());
+            String texto = "070";
+            serv.writeBytes(texto);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ClienteTCP.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public void escuta(){
-        
-    }
     
+    //Não sei como fazer aquela do servidor verificando
+
     @Override
     public void run() {
-       //switch
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public void trataMensagem(String mensagem){
-        StringTokenizer tk = new StringTokenizer(mensagem, " ");
-        String msgPartida = "";
-        int aux1, aux2;
-        
-        switch(tk.nextToken()){
-            case "040": //Atualiza dados
-                aux1 = Integer.valueOf(tk.nextToken()); //valor dado 1
-                aux2 = Integer.valueOf(tk.nextToken()); //valor dado 2
-                //Partida.atualizaDados(aux1, aux2);   //Método que atualiza dados na aplicação
-                break;
-                
-            case "041": //Novo saldo
-                aux1 = Integer.valueOf(tk.nextToken()); //valor saldo
-                //Partida.atualizaSaldo(aux1);              //Método pra atualizar saldo
-                break;
-             
-            case "042":
-                aux1 = Integer.valueOf(tk.nextToken()); //número da casa da propriedade
-                //Partida.novoDono(aux1);
-                break;
-                
-            case "043":
-                aux1 = Integer.valueOf(tk.nextToken()); //número da casa da propriedade
-                //Partida.constroi(aux1);
-                break;
-                
-            case "044":
-                aux1 = Integer.valueOf(tk.nextToken()); //número da carta
-                //Partida.sorteOuReves(aux1);
-                break;
-        }
-    }
+    
+    
     
 }
