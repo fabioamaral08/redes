@@ -32,7 +32,7 @@ public class ClienteUDP implements Runnable{
     private int status;
     
     public ClienteUDP(){
-        
+
     }
     
     

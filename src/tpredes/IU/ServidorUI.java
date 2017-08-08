@@ -133,7 +133,7 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
             InetAddress ip = j.getIP();
             ob[0] = ip.getHostAddress();
             ob[1] = j.getPortaUDP();
-            ob[3] = j.getStatus();
+            ob[2] = j.getStatus();
 
             model.addRow(ob);
 
