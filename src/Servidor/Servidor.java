@@ -25,7 +25,7 @@ public class Servidor implements Runnable {
 
     private final ArrayList<JogadorS> players;
     private DatagramSocket dS;
-    private DatagramPacket dt; 
+    private DatagramPacket dP; 
     private String mensagem;
     private ServidorUI serverui;
 
@@ -109,12 +109,12 @@ public class Servidor implements Runnable {
 
             try {
                 byte[] resposta = new byte[1024];
-                this.dt = new DatagramPacket(resposta, resposta.length);
-                dS.receive(dt);
+                this.dP = new DatagramPacket(resposta, resposta.length);
+                dS.receive(dP);
           
-                this.mensagem = new String(dt.getData());
+                this.mensagem = new String(dP.getData());
 
-                verificaMensagem(dt);
+                verificaMensagem(dP);
                 
                 this.serverui.atualiza();
 
@@ -127,14 +127,14 @@ public class Servidor implements Runnable {
 
     @Override
     public void run() {
-        DatagramPacket dp = this.dt;
+        DatagramPacket dp = this.dP;
         verificaMensagem(dp);
     }
 
     public void verificaMensagem(DatagramPacket dt) {
         StringTokenizer tk = new StringTokenizer(mensagem, " ");
-        DatagramSocket ds;
-        DatagramPacket dp;
+        DatagramSocket dsResp;
+        DatagramPacket dpResp;
         String ip;
         JogadorS jS;
         byte[] resposta;
@@ -153,9 +153,9 @@ public class Servidor implements Runnable {
                         for (JogadorS j : disponiveis) {  //Enquanto não percorrer todos os disponíveis
                             convbytes = "101 " + j.getIP().getHostAddress() +" " + j.getPortaUDP(); //Envia o IP dos jogadores
                             resposta = convbytes.getBytes();
-                            ds = new DatagramSocket();
-                            dp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);
-                            ds.send(dp);
+                            dsResp = new DatagramSocket();
+                            dpResp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);
+                            dsResp.send(dpResp);
                         }
                     } catch (NumberFormatException | IOException e) {
                         System.out.println("Não foi possível responder a solicitação 000");
@@ -174,9 +174,9 @@ public class Servidor implements Runnable {
                         String convbytes = "102 " //Novo Jogador Online
                                 + ip;
                         resposta = convbytes.getBytes();
-                        ds = new DatagramSocket();
-                        dp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);
-                        ds.send(dp); //Envia a resposta
+                        dsResp = new DatagramSocket();
+                        dpResp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);
+                        dsResp.send(dpResp); //Envia a resposta
 
                     } catch (Exception e) {
                         System.out.println("Não foi possível responder a solicitação 001");

@@ -7,6 +7,7 @@ package tpredes.IU;
 
 import Cliente.ClienteTCP;
 import Cliente.ClienteUDP;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,14 +19,15 @@ public class ClienteUI extends javax.swing.JFrame {
     /**
      * Creates new form Cliente2UI
      */
-
     private ClienteUDP cliUDP;
-    private ClienteTCP cliTCP;
+    private boolean conectado;
 
     public ClienteUI() {
         initComponents();
-        this.cliUDP  = new ClienteUDP();
-        this.cliTCP = new ClienteTCP();
+
+        CardLayout card = (CardLayout) this.p_raiz.getLayout();
+        card.show(this.p_raiz, "vazio");
+
     }
 
     /**
@@ -37,7 +39,9 @@ public class ClienteUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        p_raiz = new javax.swing.JPanel();
+        p_vazio = new javax.swing.JPanel();
+        p_cliente = new javax.swing.JPanel();
         p_player1 = new javax.swing.JPanel();
         p_player1_offline = new javax.swing.JPanel();
         p_player1_online = new javax.swing.JPanel();
@@ -82,14 +86,37 @@ public class ClienteUI extends javax.swing.JFrame {
         lb_oferta = new javax.swing.JLabel();
         tf_oferta = new javax.swing.JTextField();
         btn_go = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        p_sala = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        t_sala = new javax.swing.JTable();
+        btn_entrar = new javax.swing.JButton();
+        btn_cancelar = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         m_conectar = new javax.swing.JMenu();
         mi_conectarServidor = new javax.swing.JMenuItem();
         m_criarSala = new javax.swing.JMenu();
+        mi_novaSala = new javax.swing.JMenuItem();
+        mi_comecarPartida = new javax.swing.JMenuItem();
         m_convites = new javax.swing.JMenu();
         mi_convites = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        p_raiz.setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout p_vazioLayout = new javax.swing.GroupLayout(p_vazio);
+        p_vazio.setLayout(p_vazioLayout);
+        p_vazioLayout.setHorizontalGroup(
+            p_vazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 398, Short.MAX_VALUE)
+        );
+        p_vazioLayout.setVerticalGroup(
+            p_vazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 476, Short.MAX_VALUE)
+        );
+
+        p_raiz.add(p_vazio, "vazio");
 
         p_player1.setBackground(new java.awt.Color(0, 204, 0));
         p_player1.setPreferredSize(new java.awt.Dimension(250, 100));
@@ -505,42 +532,122 @@ public class ClienteUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout p_clienteLayout = new javax.swing.GroupLayout(p_cliente);
+        p_cliente.setLayout(p_clienteLayout);
+        p_clienteLayout.setHorizontalGroup(
+            p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(p_clienteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(p_rdados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(p_clienteLayout.createSequentialGroup()
+                        .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(p_player3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(p_player1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(p_player2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(p_player4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addComponent(p_oferta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(p_oferta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        p_clienteLayout.setVerticalGroup(
+            p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(p_clienteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(p_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(p_player1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(p_player3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(p_player4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(p_rdados, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(p_oferta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
+
+        p_raiz.add(p_cliente, "cliente");
+
+        t_sala.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "IP", "Senha"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        t_sala.setColumnSelectionAllowed(true);
+        t_sala.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(t_sala);
+        t_sala.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (t_sala.getColumnModel().getColumnCount() > 0) {
+            t_sala.getColumnModel().getColumn(0).setResizable(false);
+            t_sala.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        btn_entrar.setText("Entrar");
+        btn_entrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_entrarActionPerformed(evt);
+            }
+        });
+
+        btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout p_salaLayout = new javax.swing.GroupLayout(p_sala);
+        p_sala.setLayout(p_salaLayout);
+        p_salaLayout.setHorizontalGroup(
+            p_salaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(p_salaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(p_salaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_salaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_cancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_entrar)))
+                .addContainerGap())
+        );
+        p_salaLayout.setVerticalGroup(
+            p_salaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(p_salaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(p_salaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_cancelar)
+                    .addComponent(btn_entrar))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        p_raiz.add(p_sala, "sala");
 
         m_conectar.setText("Conectar");
         m_conectar.addActionListener(new java.awt.event.ActionListener() {
@@ -560,6 +667,13 @@ public class ClienteUI extends javax.swing.JFrame {
         menuBar.add(m_conectar);
 
         m_criarSala.setText("Criar Sala");
+
+        mi_novaSala.setText("Nova sala");
+        m_criarSala.add(mi_novaSala);
+
+        mi_comecarPartida.setText("Começar Partida");
+        m_criarSala.add(mi_comecarPartida);
+
         menuBar.add(m_criarSala);
 
         m_convites.setText("Entrar Sala");
@@ -580,11 +694,11 @@ public class ClienteUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(p_raiz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(p_raiz, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -603,26 +717,40 @@ public class ClienteUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_goActionPerformed
 
     private void m_conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_conectarActionPerformed
-        
+
     }//GEN-LAST:event_m_conectarActionPerformed
 
     private void mi_conectarServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_conectarServidorActionPerformed
-        String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
-        int porta = Integer.parseInt(JOptionPane.showInputDialog(this, "Insira a porta do servidor:"));
+        if (!conectado) {
+            String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
+            int porta = Integer.parseInt(JOptionPane.showInputDialog(this, "Insira a porta do servidor:"));
 
-        //this.cliUDP  = new ClienteTCP();
-        
-        //manda cliUDP escutar;
-        int portaUDP = this.cliUDP.getPorta();
-        this.cliTCP.conectaServer(ip, porta,portaUDP);
-        
-        Thread t = new Thread(this.cliUDP);
-        t.start();
+            int portaUDP = this.cliUDP.getPorta();
+
+            Thread t = new Thread(this.cliUDP);
+            t.start();
+            this.mi_conectarServidor.setText("Desconectar");
+        } else {
+            this.mi_conectarServidor.setText("Desconectar");
+        }
     }//GEN-LAST:event_mi_conectarServidorActionPerformed
 
     private void mi_convitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_convitesActionPerformed
-        // TODO add your handling code here:
+        CardLayout card = (CardLayout) this.p_raiz.getLayout();
+        card.show(this.p_raiz, "sala");
+
+
     }//GEN-LAST:event_mi_convitesActionPerformed
+
+    private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrarActionPerformed
+        CardLayout card = (CardLayout) this.p_raiz.getLayout();
+        card.show(this.p_raiz, "cliente");
+    }//GEN-LAST:event_btn_entrarActionPerformed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        CardLayout card = (CardLayout) this.p_raiz.getLayout();
+        card.show(this.p_raiz, "vazio");
+    }//GEN-LAST:event_btn_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -661,11 +789,14 @@ public class ClienteUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_cancelar;
+    private javax.swing.JButton btn_entrar;
     private javax.swing.JButton btn_go;
     private javax.swing.JButton btn_rdados;
     private javax.swing.JComboBox<String> cb_propriedade;
     private javax.swing.JComboBox<String> cb_proprietario;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lb_oferta;
     private javax.swing.JLabel lb_player1;
     private javax.swing.JLabel lb_player2;
@@ -693,8 +824,11 @@ public class ClienteUI extends javax.swing.JFrame {
     private javax.swing.JMenu m_convites;
     private javax.swing.JMenu m_criarSala;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem mi_comecarPartida;
     private javax.swing.JMenuItem mi_conectarServidor;
     private javax.swing.JMenuItem mi_convites;
+    private javax.swing.JMenuItem mi_novaSala;
+    private javax.swing.JPanel p_cliente;
     private javax.swing.JPanel p_oferta;
     private javax.swing.JPanel p_player1;
     private javax.swing.JPanel p_player1_offline;
@@ -708,7 +842,11 @@ public class ClienteUI extends javax.swing.JFrame {
     private javax.swing.JPanel p_player4;
     private javax.swing.JPanel p_player4_offline;
     private javax.swing.JPanel p_player4_online;
+    private javax.swing.JPanel p_raiz;
     private javax.swing.JPanel p_rdados;
+    private javax.swing.JPanel p_sala;
+    private javax.swing.JPanel p_vazio;
+    private javax.swing.JTable t_sala;
     private javax.swing.JTextField tf_oferta;
     private javax.swing.JTextField tf_rdados;
     private javax.swing.JTextField tf_rdados1;
