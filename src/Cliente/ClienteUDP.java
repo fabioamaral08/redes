@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,7 +33,13 @@ public class ClienteUDP implements Runnable{
     private int status;
     
     public ClienteUDP(){
-
+        try {
+            this.ds = new DatagramSocket();
+            
+        } catch (SocketException ex) {
+            Logger.getLogger(ClienteUDP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     
@@ -44,7 +51,8 @@ public class ClienteUDP implements Runnable{
             String texto = "001 "+InetAddress.getLocalHost().getHostAddress();
             msg = texto.getBytes();
             DatagramPacket dp = new DatagramPacket(msg, msg.length,InetAddress.getByName(ip), portaS);
-
+            this.app.setIpServer(ip);
+            this.app.setportaServer(portaS);
             ds.send(dp);
             ds.close();
 
@@ -193,6 +201,83 @@ public class ClienteUDP implements Runnable{
                     
                     
                     break;
+                
+                case "030": //Saida
+                    int n = Integer.parseInt(tk.nextToken());
+                    this.app.removeJog(n);
+                                        
+                    break;
+                
+                case "040": //Dados
+                    int d1, d2;
+                    d1 = Integer.parseInt(tk.nextToken());
+                    d2 = Integer.parseInt(tk.nextToken());
+                    this.app.setDados(d1, d2);
+                    break;
+                    
+                case "041": //Saldo
+                    int saldo = Integer.parseInt(tk.nextToken());
+                    ArrayList<JogadorC> jC = this.app.getJogadores();
+                    jC.get(Integer.parseInt(tk.nextToken())).alteraCapital(saldo);
+                    break;
+                
+                case "042" : //Novo dono propriedade e valor
+                    int prop, dono;
+                    prop = Integer.parseInt(tk.nextToken());
+                    dono = Integer.parseInt(tk.nextToken());
+                    
+                    this.app.setNovoDono(prop, dono);
+                    
+                    break;
+                    
+                case "043" : //Propriedades
+                    int prop = Integer.parseInt(tk.nextToken());
+                    this.app.addConstrucao (prop);
+                    
+                    break;
+                    
+                case "044" : //Sorte ou revés num carta
+                    int carta = Integer.parseInt(tk.nextToken());
+                    int n = Integer.parseInt(tk.nextToken());
+                    
+                    this.app.conseqCartaSR (carta, n);
+                    
+                    break;
+                    
+                case "045": //Fim de turno null
+                    this.app.fimTurno();
+                    break;
+                    
+                    
+                case "":
+                    
+                    break;
+                      
+                    
+                    
+                case "062": //
+                    this.status = 0; //Online
+                    ds = new DatagramSocket();
+                    resp = new byte[1024];
+                    texto = "002 0";
+                    resp = texto.getBytes();
+                    dp = new DatagramPacket(resp, resp.length, this.app.getipServer(), this.app.getportaServer());
+                    ds.send(dp);   
+                    JOptionPane.showMessageDialog(null, "Fim de Partida");
+
+                   
+                    break;
+                    
+                case "063":
+                    this.status = 1; //Jogando
+                    ds = new DatagramSocket();
+                    resp = new byte[1024];
+                    texto = "002 1";
+                    resp = texto.getBytes();
+                    dp = new DatagramPacket(resp, resp.length, this.app.getipServer(), this.app.getportaServer());
+                    ds.send(dp);
+                    JOptionPane.showMessageDialog(null, "Inicio de Partida");
+                    break;
             }
             
             
@@ -211,6 +296,28 @@ public class ClienteUDP implements Runnable{
     }
     
     
+    public void rDados (int d1, int d2){
+            
+        try {
+            
+            ds = new DatagramSocket();
+            byte[] msg = new byte[1024];
+            String texto = "040 "+ d1 + " " + d2;
+            msg = texto.getBytes();
+            for (JogadorC j: app.getJogadores()){
+                
+            DatagramPacket dp = new DatagramPacket(msg, msg.length,InetAddress.getByName(j.getIP()), j.getPorta());
+            ds.send(dp);
+            
+            }
+            ds.close();   
+        } catch (SocketException ex) {
+            Logger.getLogger(ClienteUDP.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ClienteUDP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     //Não sei como fazer aquela do servidor verificando
 
@@ -228,10 +335,15 @@ public class ClienteUDP implements Runnable{
             verificaMsg(msg,dp);
         } catch (IOException ex) {
             System.out.println("Erro ao receber mensagem UDP cliente");
+            this.app.erroServerUI();
+            return;
         }
        }
     }
 
+    public int getStatus (){
+        return this.status;
+    }
 
 
     public int getPorta(){
