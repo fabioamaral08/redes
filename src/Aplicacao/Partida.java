@@ -18,6 +18,7 @@ public class Partida {
     private ArrayList<Casa> casaTab;
     private short jogadorVez;
     private short numJogadores;
+    private int d1, d2;
     
     private void initTabuleiro(){
         TituloPropriedade aux;
@@ -198,9 +199,12 @@ public class Partida {
             novaPos = (novaPos + d1 + d2) %40;
             j.setPos(novaPos);
         }
+        
+        this.d1 = d1;
+        this.d2 = d2;
     }
     
-    public void removeJog(JogadorC j){
+    public void removeJog(int j){
         this.jogadores.remove(j);
     }
     
@@ -229,5 +233,9 @@ public class Partida {
     
     public JogadorC getJogador(int j){
         return this.jogadores.get(j);
+    }
+
+    public ArrayList<JogadorC> getJogadores() {
+        return jogadores;
     }
 }
