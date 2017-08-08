@@ -48,14 +48,14 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
 
             },
             new String [] {
-                "IP", "Porta UDP", "Porta TCP", "Status"
+                "IP", "Porta UDP", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -71,7 +71,6 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
             tb_servidor.getColumnModel().getColumn(0).setResizable(false);
             tb_servidor.getColumnModel().getColumn(1).setResizable(false);
             tb_servidor.getColumnModel().getColumn(2).setResizable(false);
-            tb_servidor.getColumnModel().getColumn(3).setResizable(false);
         }
 
         onButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -134,7 +133,6 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
             InetAddress ip = j.getIP();
             ob[0] = ip.getHostAddress();
             ob[1] = j.getPortaUDP();
-            ob[2] = j.getPortaTCP();
             ob[3] = j.getStatus();
 
             model.addRow(ob);

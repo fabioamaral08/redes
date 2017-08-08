@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 public class JogadorS {
     private InetAddress IP;
     private int portaUDP;
-    private int portaTCP;
     private String status;   //0 - Disponivel, 1 - Criando partida, 2 - Jogando
     
     public JogadorS(String IP, int portaUDP){
@@ -44,14 +43,6 @@ public class JogadorS {
 
     public void setPortaUDP(int portaUDP) {
         this.portaUDP = portaUDP;
-    }
-
-    public int getPortaTCP() {
-        return portaTCP;
-    }
-
-    public void setPortaTCP(int portaTCP) {
-        this.portaTCP = portaTCP;
     }
     
 

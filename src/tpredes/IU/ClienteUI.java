@@ -19,17 +19,15 @@ public class ClienteUI extends javax.swing.JFrame {
     /**
      * Creates new form Cliente2UI
      */
-
     private ClienteUDP cliUDP;
-    private ClienteTCP cliTCP;
+    private boolean conectado;
 
     public ClienteUI() {
         initComponents();
-        
+
         CardLayout card = (CardLayout) this.p_raiz.getLayout();
         card.show(this.p_raiz, "vazio");
-        
-        
+
     }
 
     /**
@@ -719,26 +717,29 @@ public class ClienteUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_goActionPerformed
 
     private void m_conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_conectarActionPerformed
-        
+
     }//GEN-LAST:event_m_conectarActionPerformed
 
     private void mi_conectarServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_conectarServidorActionPerformed
-        String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
-        int porta = Integer.parseInt(JOptionPane.showInputDialog(this, "Insira a porta do servidor:"));
+        if (!conectado) {
+            String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
+            int porta = Integer.parseInt(JOptionPane.showInputDialog(this, "Insira a porta do servidor:"));
 
-        //this.cliUDP  = new ClienteTCP();
-        
-        //manda cliUDP escutar;
-        int portaUDP = this.cliUDP.getPorta();
-        this.cliTCP.conectaServer(ip, porta,portaUDP);
-        
-        Thread t = new Thread(this.cliUDP);
-        t.start();
+            int portaUDP = this.cliUDP.getPorta();
+
+            Thread t = new Thread(this.cliUDP);
+            t.start();
+            this.mi_conectarServidor.setText("Desconectar");
+        } else {
+            this.mi_conectarServidor.setText("Desconectar");
+        }
     }//GEN-LAST:event_mi_conectarServidorActionPerformed
 
     private void mi_convitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_convitesActionPerformed
         CardLayout card = (CardLayout) this.p_raiz.getLayout();
         card.show(this.p_raiz, "sala");
+
+
     }//GEN-LAST:event_mi_convitesActionPerformed
 
     private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrarActionPerformed

@@ -67,5 +67,5 @@ public class JogadorC {
         this.cartaPrisao = cartaPrisao;
     }
     
-    
+    public String 
 }

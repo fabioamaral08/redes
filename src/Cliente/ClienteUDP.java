@@ -15,6 +15,7 @@ import java.net.DatagramSocket;
  */
 public class ClienteUDP implements Runnable{
     private DatagramSocket ds;
+    private Aplicacao app;
 
     
     @Override
