@@ -148,12 +148,8 @@ public class Servidor implements Runnable {
                 if (jS != null) {
                     try {
                         porta = Integer.valueOf(tk.nextToken());
-                        String convbytes = "100 " //qntdade de jogadores disponiveis
-                                + Integer.toString(disponiveis.size());
-                        resposta = convbytes.getBytes();
-                        dsResp = new DatagramSocket();
-                        dpResp = new DatagramPacket(resposta, resposta.length, jS.getIP(), porta);
-                        dsResp.send(dpResp); //Envia a resposta
+                        String convbytes;
+                        
                         for (JogadorS j : disponiveis) {  //Enquanto não percorrer todos os disponíveis
                             convbytes = "101 " + j.getIP().getHostAddress() +" " + j.getPortaUDP(); //Envia o IP dos jogadores
                             resposta = convbytes.getBytes();
