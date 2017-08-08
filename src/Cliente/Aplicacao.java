@@ -12,7 +12,7 @@ public class Aplicacao implements Runnable {
     private DatagramSocket socUDP;
     private int portaUDP;
     private Partida partida;
-    private int meuNum;
+    private short meuNum;
     private String ipServer;
     private int portaServer;
 
@@ -34,7 +34,7 @@ public class Aplicacao implements Runnable {
     
     public void fimTurno() {
         partida.fimTurno();
-        int jogVez = partida.getJogadorVez();
+        short jogVez = partida.getJogadorVez();
         if (jogVez == meuNum) {
             ui.setDados(true);
         } else {
@@ -70,4 +70,38 @@ public class Aplicacao implements Runnable {
     public void addJog(){
         
     }
+    
+    public void erroServerUI(){
+        this.ui.setServerFalse();
+    }
+    
+    public void setNovoDono(int prop, int dono){
+        this.partida.setDono(prop,dono);
+    }
+    
+    public void addConstrucao(int prop){
+        this.partida.addCasa(prop);
+    }
+    
+    public void conseqCartaSR(int carta, int jog){
+        this.partida.conseqSR(carta, jog);
+    }
+
+    public String getIpServer() {
+        return ipServer;
+    }
+
+    public void setIpServer(String ipServer) {
+        this.ipServer = ipServer;
+    }
+
+    public int getPortaServer() {
+        return portaServer;
+    }
+
+    public void setPortaServer(int portaServer) {
+        this.portaServer = portaServer;
+    }
+    
+    
 }

@@ -67,5 +67,7 @@ public class JogadorC {
         this.cartaPrisao = cartaPrisao;
     }
     
-    public String 
+    public String getIP(){
+        return this.ip.getHostAddress();
+    }
 }

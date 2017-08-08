@@ -5,7 +5,6 @@
  */
 package tpredes.IU;
 
-import Cliente.ClienteTCP;
 import Cliente.ClienteUDP;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -27,6 +26,8 @@ public class ClienteUI extends javax.swing.JFrame {
 
         CardLayout card = (CardLayout) this.p_raiz.getLayout();
         card.show(this.p_raiz, "vazio");
+        
+        this.cliUDP = new ClienteUDP();
 
     }
 
@@ -725,13 +726,15 @@ public class ClienteUI extends javax.swing.JFrame {
             String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
             int porta = Integer.parseInt(JOptionPane.showInputDialog(this, "Insira a porta do servidor:"));
 
-            int portaUDP = this.cliUDP.getPorta();
+            this.cliUDP.conectaServer(ip, porta);
 
             Thread t = new Thread(this.cliUDP);
             t.start();
             this.mi_conectarServidor.setText("Desconectar");
+            this.conectado = true;
         } else {
-            this.mi_conectarServidor.setText("Desconectar");
+            this.mi_conectarServidor.setText("Conectar ao Servidor");
+            this.conectado = false;
         }
     }//GEN-LAST:event_mi_conectarServidorActionPerformed
 
@@ -851,4 +854,9 @@ public class ClienteUI extends javax.swing.JFrame {
     private javax.swing.JTextField tf_rdados;
     private javax.swing.JTextField tf_rdados1;
     // End of variables declaration//GEN-END:variables
+
+    public void setServerFalse() {
+       this.conectado = false;
+       this.mi_conectarServidor.setText("Conectar ao Servidor");
+    }
 }
