@@ -207,6 +207,7 @@ public class Servidor implements Runnable {
             default:
                 System.out.println("Default");
         }
+        this.serverui.atualiza();
     }
 
 }
