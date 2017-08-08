@@ -48,4 +48,8 @@ public class TituloPropriedade {
             aluguel += 20;
         }
     }
+
+    public int getNumCasas() {
+        return numCasas;
+    }
 }

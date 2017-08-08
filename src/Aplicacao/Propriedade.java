@@ -20,16 +20,30 @@ public class Propriedade extends Casa{
 
     @Override
     public void aplicaConsequencia(JogadorC j) {
-        if(tp.getDono() != null){
-            tp.getDono().alteraCapital(-tp.getAluguel());
+        if(tp.getDono() != j){
+            if (tp.getDono() != null) {
+                tp.getDono().alteraCapital(tp.getAluguel());
+                j.alteraCapital(-tp.getAluguel());
+            }
+            else{
+                if(JOptionPane.showConfirmDialog(null, "Deseja comprar essa propriedade?") == JOptionPane.YES_OPTION){
+                    if (j.getCapital() >= tp.getValor()) {
+                        tp.setDono(j);
+                        j.alteraCapital(-tp.getValor());
+                    }
+                    else JOptionPane.showMessageDialog(null, "Capital insuficiente!");
+                }
+            }
         }
         else{
-            if(JOptionPane.showConfirmDialog(null, "Deseja comprar essa propriedade?") == JOptionPane.YES_OPTION){
-                if(j.getCapital() >= tp.getValor()){
-                    tp.setDono(j);
-                    j.alteraCapital(-tp.getValor());
+            if(tp.getNumCasas()<5){
+                if(JOptionPane.showConfirmDialog(null, "Deseja construir?") == JOptionPane.YES_OPTION){
+                    if(j.getCapital() >= 70){
+                        tp.construir();
+                        j.alteraCapital(-70);
+                    }
+                    else JOptionPane.showMessageDialog(null, "Capital insuficiente!");
                 }
-                else JOptionPane.showMessageDialog(null, "Capital insuficiente!");
             }
         }
     }
