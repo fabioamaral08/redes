@@ -5,7 +5,6 @@
  */
 package tpredes.IU;
 
-import Cliente.ClienteTCP;
 import Cliente.ClienteUDP;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -27,6 +26,8 @@ public class ClienteUI extends javax.swing.JFrame {
 
         CardLayout card = (CardLayout) this.p_raiz.getLayout();
         card.show(this.p_raiz, "vazio");
+        
+        this.cliUDP = new ClienteUDP();
 
     }
 
@@ -730,8 +731,10 @@ public class ClienteUI extends javax.swing.JFrame {
             Thread t = new Thread(this.cliUDP);
             t.start();
             this.mi_conectarServidor.setText("Desconectar");
+            this.conectado = true;
         } else {
             this.mi_conectarServidor.setText("Desconectar");
+            this.conectado = false;
         }
     }//GEN-LAST:event_mi_conectarServidorActionPerformed
 
