@@ -21,6 +21,7 @@ public class ClienteUI extends javax.swing.JFrame {
     /**
      * Creates new form Cliente2UI
      */
+    private short jogadores = 0;
     private ClienteUDP cliUDP;
     private boolean conectado;
     private ArrayList<Convite> convites;
@@ -35,7 +36,49 @@ public class ClienteUI extends javax.swing.JFrame {
         this.convites = new ArrayList();
         this.m_convites.setEnabled(false);
         this.m_criarSala.setEnabled(false);
+        
+        
 
+    }
+    
+    public void addJogador(){
+        
+        switch(this.jogadores){
+            case 0:
+                this.lb_saldoAtual1.setText("2500");
+                this.lb_posAtual1.setText("0");
+                CardLayout card1 = (CardLayout) this.p_player1.getLayout();
+                card1.show(this.p_player1, "player1_online");
+                this.jogadores+=1;
+                break;
+            case 1:
+                this.lb_saldoAtual2.setText("2500");
+                this.lb_posAtual2.setText("0");
+                CardLayout card2 = (CardLayout) this.p_player2.getLayout();
+                card2.show(this.p_player2, "player2_online");
+                this.jogadores+=1;
+                break;
+            case 2:
+                this.lb_saldoAtual3.setText("2500");
+                this.lb_posAtual3.setText("0");
+                CardLayout card3 = (CardLayout) this.p_player3.getLayout();
+                card3.show(this.p_player3, "player3_online");
+                this.jogadores+=1;
+                break;
+            case 3:
+                this.lb_saldoAtual4.setText("2500");
+                this.lb_posAtual4.setText("0");
+                CardLayout card4 = (CardLayout) this.p_player4.getLayout();
+                card4.show(this.p_player4, "player4_online");
+                this.jogadores+=1;
+                break;
+            case 4:
+                JOptionPane.showMessageDialog(null,"Número Máx de jogadores atingidos!");
+                
+                
+                
+        }
+        
     }
 
     /**
@@ -690,6 +733,11 @@ public class ClienteUI extends javax.swing.JFrame {
         m_criarSala.add(mi_novaSala);
 
         mi_comecarPartida.setText("Começar Partida");
+        mi_comecarPartida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_comecarPartidaActionPerformed(evt);
+            }
+        });
         m_criarSala.add(mi_comecarPartida);
 
         menuBar.add(m_criarSala);
@@ -803,11 +851,19 @@ public class ClienteUI extends javax.swing.JFrame {
         CardLayout card = (CardLayout) this.p_raiz.getLayout();
         card.show(this.p_raiz, "cliente");
         this.p_player1.setVisible(true);
+        
+        //tem que setar labels do criador da sala
+        CardLayout cardJ1 = (CardLayout) this.p_player1.getLayout();
+        cardJ1.show(this.p_raiz, "player1_online");
     }//GEN-LAST:event_mi_novaSalaActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.cliUDP.encerrarConexao();
     }//GEN-LAST:event_formWindowClosing
+
+    private void mi_comecarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_comecarPartidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mi_comecarPartidaActionPerformed
 
     /**
      * @param args the command line arguments
