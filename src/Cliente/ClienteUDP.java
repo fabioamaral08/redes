@@ -265,8 +265,9 @@ public class ClienteUDP implements Runnable {
                     break;
 
                 case "100":
-                    int pos = Integer.parseInt(tk.nextToken());
-                    this.app.setPosServ(pos);
+                    String fuck = tk.nextToken();
+                    //int pos = Integer.valueOf(fuck);
+                    this.app.setPosServ(fuck);
                     break;
 
                 case "062": //

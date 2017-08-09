@@ -166,7 +166,7 @@ public class Servidor implements Runnable {
                 ArrayList<JogadorS> criadores = getCriadores();
                 try {
                     String convbytes = "100 " //Novo Jogador Online
-                            + this.prox;
+                            + Integer.toString(this.prox);
                     this.prox++;
                     resposta = convbytes.getBytes();
                     dsResp = new DatagramSocket();
