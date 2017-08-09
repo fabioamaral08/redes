@@ -25,9 +25,10 @@ public class Servidor implements Runnable {
 
     private final ArrayList<JogadorS> players;
     private DatagramSocket dS;
-    private DatagramPacket dP; 
+    private DatagramPacket dP;
     private String mensagem;
     private ServidorUI serverui;
+    private int prox;
 
     public Servidor() {
         try {
@@ -44,9 +45,10 @@ public class Servidor implements Runnable {
             System.out.println("Erro Construtor");
         }
         this.players = new ArrayList();
+        this.prox = 0;
     }
-    
-    public void setUI(ServidorUI serverui){
+
+    public void setUI(ServidorUI serverui) {
         this.serverui = serverui;
     }
 
@@ -57,8 +59,8 @@ public class Servidor implements Runnable {
     public ArrayList getDisponiveis() {
         ArrayList<JogadorS> dPlayers = new ArrayList();
 
-        for(JogadorS j : this.players){
-            if(j.getStatus().equals("0")){
+        for (JogadorS j : this.players) {
+            if (j.getStatus().equals("0")) {
                 dPlayers.add(j);
             }
         }
@@ -68,8 +70,8 @@ public class Servidor implements Runnable {
     public ArrayList getCriadores() {
         ArrayList<JogadorS> cPlayers = new ArrayList();
 
-        for(JogadorS j : this.players){
-            if(j.getStatus().equals("1")){
+        for (JogadorS j : this.players) {
+            if (j.getStatus().equals("1")) {
                 cPlayers.add(j);
             }
         }
@@ -85,22 +87,17 @@ public class Servidor implements Runnable {
         }
 
     }
-    
-    public void removePlayer (String ip){
-       for (JogadorS p : this.players) {
+
+    public void removePlayer(String ip) {
+        for (JogadorS p : this.players) {
             if (p.getIP().getHostAddress().equals(ip)) {
                 this.players.remove(p);
             }
-        } 
+        }
     }
 
-    public JogadorS getPlayer(String ip) {
-        for (JogadorS p : this.players) {
-            if (p.getIP().getHostAddress().equals(ip)) {
-                return p;
-            }
-        }
-        return null;
+    public JogadorS getPlayer(int i) {
+        return this.players.get(i);
     }
 
     public void escuta() {
@@ -111,11 +108,11 @@ public class Servidor implements Runnable {
                 byte[] resposta = new byte[1024];
                 this.dP = new DatagramPacket(resposta, resposta.length);
                 dS.receive(dP);
-          
+
                 this.mensagem = new String(dP.getData());
 
                 verificaMensagem(dP);
-                
+
                 this.serverui.atualiza();
 
             } catch (IOException ex) {
@@ -140,18 +137,18 @@ public class Servidor implements Runnable {
         byte[] resposta;
         int porta;
 
-        switch (tk.nextToken()) { 
+        switch (tk.nextToken()) {
             case "000": //Nova Sala
                 ArrayList<JogadorS> disponiveis = getDisponiveis();
-                ip = tk.nextToken();
-                jS = getPlayer(ip);
+                int num = Integer.parseInt(tk.nextToken());
+                jS = getPlayer(num);
                 if (jS != null) {
                     try {
                         porta = Integer.valueOf(tk.nextToken());
                         String convbytes;
-                        
+
                         for (JogadorS j : disponiveis) {  //Enquanto não percorrer todos os disponíveis
-                            convbytes = "101 " + j.getIP().getHostAddress() +" " + j.getPortaUDP(); //Envia o IP dos jogadores
+                            convbytes = "101 " + j.getEnderecoIP() + " " + j.getPortaUDP(); //Envia o IP dos jogadores
                             resposta = convbytes.getBytes();
                             dsResp = new DatagramSocket();
                             dpResp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);
@@ -167,21 +164,28 @@ public class Servidor implements Runnable {
                 jS = new JogadorS(ip, dt.getPort());
                 this.players.add(jS); //Add novo jogador online
                 ArrayList<JogadorS> criadores = getCriadores();
+                try {
+                    String convbytes = "100 " //Novo Jogador Online
+                            + this.prox;
+                    this.prox++;
+                    resposta = convbytes.getBytes();
+                    dsResp = new DatagramSocket();
+                    dpResp = new DatagramPacket(resposta, resposta.length, jS.getIP(), jS.getPortaUDP());
+                    dsResp.send(dpResp); //Envia a resposta
 
-                for (JogadorS j : criadores) {
-                    try {
+                    for (JogadorS j : criadores) {
+
                         porta = j.getPortaUDP();
-                        String convbytes = "102 " //Novo Jogador Online
+                        convbytes = "102 " //Novo Jogador Online
                                 + ip;
                         resposta = convbytes.getBytes();
                         dsResp = new DatagramSocket();
                         dpResp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);
                         dsResp.send(dpResp); //Envia a resposta
 
-                    } catch (Exception e) {
-                        System.out.println("Não foi possível responder a solicitação 001");
                     }
-
+                } catch (Exception e) {
+                    System.out.println("Não foi possível responder a solicitação 001");
                 }
                 break;
 
@@ -195,13 +199,13 @@ public class Servidor implements Runnable {
                     System.out.println("Não foi possível atender a solicitação 002");
                 }
                 break;
-                
+
             case "070":
-                try{
-                   ip = dt.getAddress().toString();
-                   removePlayer(ip);                    
-                    
-                } catch (Exception e){
+                try {
+                    ip = dt.getAddress().toString();
+                    removePlayer(ip);
+
+                } catch (Exception e) {
                     System.out.println("Não foi possível atender a solicitação 007");
                 }
             default:

@@ -15,6 +15,7 @@ public class Aplicacao implements Runnable {
     private short meuNum;
     private String ipServer;
     private int portaServer;
+    private int posServ;
 
     private boolean aberto;
     private String senha;
@@ -125,5 +126,13 @@ public class Aplicacao implements Runnable {
     
     public void novoConvite(Convite c){
         this.ui.addConvite(c);
+    }
+    
+    public void setPosServ(int pos){
+        this.posServ = pos;
+    }
+    
+    public int getPosServ(){
+        return this.posServ;
     }
 }

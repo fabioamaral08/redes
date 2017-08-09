@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  */
 public class JogadorS {
     private InetAddress IP;
+    private String enderecoIP;
     private int portaUDP;
     private String status;   //0 - Disponivel, 1 - Criando partida, 2 - Jogando
     
@@ -25,6 +26,7 @@ public class JogadorS {
         } catch (UnknownHostException ex) {
             System.out.println("Erro no IP");
         }
+        this.enderecoIP = IP;
         this.portaUDP = portaUDP;
         status = "0";
     }
@@ -52,5 +54,9 @@ public class JogadorS {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    
+    public String getEnderecoIP(){
+        return this.enderecoIP;
     }
 }

@@ -82,7 +82,7 @@ public class ClienteUDP implements Runnable {
         try {
             ds = new DatagramSocket();
             byte[] msg = new byte[1024];
-            String texto = "000 " + InetAddress.getLocalHost().getHostAddress();
+            String texto = "000 " + this.app.getPosServ() +" "+ this.dsEscuta.getLocalPort();
             msg = texto.getBytes();
             DatagramPacket dp = new DatagramPacket(msg, msg.length, InetAddress.getByName(ip), portaS);
             ds.send(dp);
@@ -264,8 +264,9 @@ public class ClienteUDP implements Runnable {
                     this.app.fimTurno();
                     break;
 
-                case "":
-
+                case "100":
+                    int pos = Integer.parseInt(tk.nextToken());
+                    this.app.setPosServ(pos);
                     break;
 
                 case "062": //
