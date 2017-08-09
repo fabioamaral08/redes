@@ -58,7 +58,7 @@ public class ClienteUDP implements Runnable {
             this.app.setPortaServer(portaS);
             ds.send(dp);
 
-             ds.close();
+            ds.close();
             this.dsEscuta = new DatagramSocket(port);
 
            
@@ -83,9 +83,14 @@ public class ClienteUDP implements Runnable {
             ds = new DatagramSocket();
             byte[] msg = new byte[1024];
             String texto = "000 " + InetAddress.getLocalHost().getHostAddress();
-            DatagramPacket dp = new DatagramPacket(msg, msg.length, InetAddress.getByName(ip), portaS);
-
             msg = texto.getBytes();
+            DatagramPacket dp = new DatagramPacket(msg, msg.length, InetAddress.getByName(ip), portaS);
+            ds.send(dp);
+            texto = "002 2 ";
+            msg = texto.getBytes();
+            dp = new DatagramPacket(msg, msg.length, InetAddress.getByName(ip), portaS);
+            
+            
             ds.send(dp);
             ds.close();
 
