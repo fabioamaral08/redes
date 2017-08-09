@@ -140,7 +140,8 @@ public class Servidor implements Runnable {
         switch (tk.nextToken()) {
             case "000": //Nova Sala
                 ArrayList<JogadorS> disponiveis = getDisponiveis();
-                int num = Integer.parseInt(tk.nextToken());
+                byte[] b = (tk.nextToken()).getBytes();
+                int num = Integer.parseInt(new String(b));
                 jS = getPlayer(num);
                 if (jS != null) {
                     try {
