@@ -23,8 +23,8 @@ public class JogadorC {
     private boolean preso;
     private boolean cartaPrisao;
     
-    public JogadorC(String ip, int num){
-        this.num = num;
+    public JogadorC(String ip, int porta){
+        this.porta = porta;
         this.capital = 2500;
         this.pos = 0;
         this.preso = false;
@@ -77,5 +77,9 @@ public class JogadorC {
     }
     public void setPorta(int porta){
         this.porta = porta;
+    }
+    
+    public void setNum(int num){
+        this.num = num;
     }
 }
