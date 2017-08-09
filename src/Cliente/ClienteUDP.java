@@ -265,6 +265,35 @@ public class ClienteUDP implements Runnable {
                 case "045": //Fim de turno null
                     this.app.fimTurno();
                     break;
+                    
+                case "050":
+                    int propriedadeP = Integer.parseInt(tk.nextToken());
+                    int valorP = Integer.parseInt(tk.nextToken());
+                    
+                    int opc = JOptionPane.showConfirmDialog(null, "Voce recebeu uma proposta no valor de " + valorP + "pela propriedade "+propriedadeP);
+                    
+                    if (opc == 0 ) {
+                        ds = new DatagramSocket();
+                        resp = new byte[1024];
+                        texto = "150 1 ";
+                        resp = texto.getBytes();
+                        dataP = new DatagramPacket(resp, resp.length, 
+                                dp.getAddress(),dp.getPort());
+                                
+                        ds.send(dp);
+                    }
+                    else{
+                        ds = new DatagramSocket();
+                        resp = new byte[1024];
+                        texto = "150 0 ";
+                        resp = texto.getBytes();
+                        dataP = new DatagramPacket(resp, resp.length,
+                                dp.getAddress(), dp.getPort());
+                        ds.send(dp);
+                    }
+                    
+                    
+                    break;
 
                 case "100":
                     String pos = tk.nextToken();
@@ -304,6 +333,24 @@ public class ClienteUDP implements Runnable {
             Logger.getLogger(ClienteUDP.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    
+    public void fazerProposta (int pro, int valor, int jog){
+        try {
+            ds = new DatagramSocket();
+            byte[] resp = new byte[1024];
+            String texto = "050 "+pro+" "+valor+" ";
+            resp = texto.getBytes();
+            DatagramPacket dp = new DatagramPacket(resp, resp.length,
+                    InetAddress.getByName((this.app.getJogadores().get(jog).getIP())),
+                    this.app.getJogadores().get(jog).getPorta());
+            ds.send(dp);
+        } catch (SocketException ex) {
+            Logger.getLogger(ClienteUDP.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ClienteUDP.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void rDados(int d1, int d2) {
