@@ -238,4 +238,9 @@ public class Partida {
     public ArrayList<JogadorC> getJogadores() {
         return jogadores;
     }
+    
+    public void addJogador(JogadorC j){
+        j.setNum(this.jogadores.size());
+        this.jogadores.add(j);
+    }
 }
