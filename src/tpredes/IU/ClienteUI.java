@@ -24,7 +24,6 @@ public class ClienteUI extends javax.swing.JFrame {
     private ClienteUDP cliUDP;
     private boolean conectado;
     private ArrayList<Convite> convites;
-    
 
     public ClienteUI() {
         initComponents();
@@ -741,21 +740,25 @@ public class ClienteUI extends javax.swing.JFrame {
 
     private void mi_conectarServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_conectarServidorActionPerformed
         if (!conectado) {
-            String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
-            int porta = Integer.parseInt(JOptionPane.showInputDialog(this, "Insira a porta do servidor:"));
+            try {
+                String ip = JOptionPane.showInputDialog(this, "Insira o IP do servidor:");
+                int porta = Integer.parseInt(JOptionPane.showInputDialog(this, "Insira a porta do servidor:"));
 
-            this.cliUDP.conectaServer(ip, porta);
+                this.cliUDP.conectaServer(ip, porta);
 
-            Thread t = new Thread(this.cliUDP);
-            t.start();
-            this.mi_conectarServidor.setText("Desconectar");
-            this.conectado = true;
+                Thread t = new Thread(this.cliUDP);
+                t.start();
+                this.mi_conectarServidor.setText("Desconectar");
+                this.conectado = true;
+            }catch(NumberFormatException e){
+                return;
+            }
         } else {
             this.cliUDP.encerrarConexao();
             this.mi_conectarServidor.setText("Conectar ao Servidor");
             this.conectado = false;
+
         }
-        
         this.m_convites.setEnabled(conectado);
         this.m_criarSala.setEnabled(conectado);
     }//GEN-LAST:event_mi_conectarServidorActionPerformed
@@ -796,7 +799,7 @@ public class ClienteUI extends javax.swing.JFrame {
             return;
         }
         this.cliUDP.criarSala(opc);
-        
+
         CardLayout card = (CardLayout) this.p_raiz.getLayout();
         card.show(this.p_raiz, "cliente");
         this.p_player1.setVisible(true);
@@ -918,6 +921,5 @@ public class ClienteUI extends javax.swing.JFrame {
     public void addConvite(Convite c) {
         this.convites.add(c);
     }
-    
-    
+
 }
