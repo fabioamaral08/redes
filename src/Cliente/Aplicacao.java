@@ -74,8 +74,10 @@ public class Aplicacao implements Runnable {
         return this.partida.getJogadores();
     }
     
-    public void addJog(){
-        
+    public void addJog(String ip, int porta){
+        JogadorC j = new JogadorC(ip,num);
+        this.partida.addJogador(j);
+        this.ui.addJogador();
     }
     
     public void erroServerUI(){
@@ -134,5 +136,11 @@ public class Aplicacao implements Runnable {
     
     public String getPosServ(){
         return this.posServ;
+    }
+    
+    public void numJogadores(int num){
+        if(num == -1){
+            
+        }
     }
 }
