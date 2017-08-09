@@ -68,31 +68,36 @@ public class ClienteUDP implements Runnable {
     }
 
     public void criarSala(int aberto) {
-        int i;
-        String ip = this.app.getIpServer();
-        int portaS = this.app.getPortaServer();
-        this.status = 2;//Criando Sala
-        this.app.addJog(InetAddress.getLocalHost().toString(), this.dsEscuta.getLocalPort());
-
-        if (aberto == 0) {
-            this.app.setSenha(JOptionPane.showInputDialog(null, "Digite a senha"));
-        } else {
-            this.app.setSenha("null");
-        }
         try {
-            ds = new DatagramSocket();
-            byte[] msg = new byte[1024];
-
-            String texto = "000 " + this.app.getPosServ() + " " + this.dsEscuta.getLocalPort() + " ";
-            msg = texto.getBytes();
-            DatagramPacket dp = new DatagramPacket(msg, msg.length, InetAddress.getByName(ip), portaS);
-            ds.send(dp);
-
-            ds.close();
-
-        } catch (SocketException ex) {
-            System.out.println("Erro ao criar Socket do cliente");
-        } catch (IOException ex) {
+            int i;
+            String ip = this.app.getIpServer();
+            int portaS = this.app.getPortaServer();
+            this.status = 2;//Criando Sala
+            this.app.addJog(InetAddress.getLocalHost().toString(), this.dsEscuta.getLocalPort());
+            
+            if (aberto == 0) {
+                this.app.setSenha(JOptionPane.showInputDialog(null, "Digite a senha"));
+            } else {
+                this.app.setSenha("null");
+            }
+            try {
+                ds = new DatagramSocket();
+                byte[] msg = new byte[1024];
+                
+                String texto = "000 " + this.app.getPosServ() + " " + this.dsEscuta.getLocalPort() + " ";
+                msg = texto.getBytes();
+                DatagramPacket dp = new DatagramPacket(msg, msg.length, InetAddress.getByName(ip), portaS);
+                ds.send(dp);
+                
+                ds.close();
+                
+            } catch (SocketException ex) {
+                System.out.println("Erro ao criar Socket do cliente");
+            } catch (IOException ex) {
+                Logger.getLogger(ClienteUDP.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } catch (UnknownHostException ex) {
             Logger.getLogger(ClienteUDP.class.getName()).log(Level.SEVERE, null, ex);
         }
 
