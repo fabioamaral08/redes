@@ -140,8 +140,7 @@ public class Servidor implements Runnable {
         switch (tk.nextToken()) {
             case "000": //Nova Sala
                 ArrayList<JogadorS> disponiveis = getDisponiveis();
-                byte[] b = (tk.nextToken()).getBytes();
-                int num = Integer.parseInt(new String(b));
+                int num = Integer.parseInt(tk.nextToken());
                 jS = getPlayer(num);
                 if (jS != null) {
                     try {
@@ -149,7 +148,7 @@ public class Servidor implements Runnable {
                         String convbytes;
 
                         for (JogadorS j : disponiveis) {  //Enquanto não percorrer todos os disponíveis
-                            convbytes = "101 " + j.getEnderecoIP() + " " + j.getPortaUDP(); //Envia o IP dos jogadores
+                            convbytes = "101 " + j.getEnderecoIP() + " " + j.getPortaUDP() + " "; //Envia o IP dos jogadores
                             resposta = convbytes.getBytes();
                             dsResp = new DatagramSocket();
                             dpResp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);
@@ -167,7 +166,7 @@ public class Servidor implements Runnable {
                 ArrayList<JogadorS> criadores = getCriadores();
                 try {
                     String convbytes = "100 " //Novo Jogador Online
-                            + Integer.toString(this.prox);
+                            + Integer.toString(this.prox) + " ";
                     this.prox++;
                     resposta = convbytes.getBytes();
                     dsResp = new DatagramSocket();
@@ -178,7 +177,7 @@ public class Servidor implements Runnable {
 
                         porta = j.getPortaUDP();
                         convbytes = "102 " //Novo Jogador Online
-                                + ip;
+                                + ip + " ";
                         resposta = convbytes.getBytes();
                         dsResp = new DatagramSocket();
                         dpResp = new DatagramPacket(resposta, resposta.length, j.getIP(), porta);

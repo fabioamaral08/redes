@@ -117,7 +117,7 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onButtonActionPerformed
-        //System.out.println(dS.getLocalPort() + "\n" + InetAddress.getLocalHost().getHostAddress());
+        
         Thread t = new Thread(this);
         t.start();
         //server.escuta();
