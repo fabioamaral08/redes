@@ -75,7 +75,7 @@ public class Aplicacao implements Runnable {
     }
     
     public void addJog(String ip, int porta){
-        JogadorC j = new JogadorC(ip,num);
+        JogadorC j = new JogadorC(ip,porta);
         this.partida.addJogador(j);
         this.ui.addJogador();
     }
