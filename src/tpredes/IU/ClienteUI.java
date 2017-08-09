@@ -34,6 +34,8 @@ public class ClienteUI extends javax.swing.JFrame {
 
         this.cliUDP = new ClienteUDP(this);
         this.convites = new ArrayList();
+        this.m_convites.setEnabled(false);
+        this.m_criarSala.setEnabled(false);
 
     }
 
@@ -109,6 +111,11 @@ public class ClienteUI extends javax.swing.JFrame {
         mi_convites = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         p_raiz.setLayout(new java.awt.CardLayout());
 
@@ -549,12 +556,12 @@ public class ClienteUI extends javax.swing.JFrame {
                     .addComponent(p_rdados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(p_clienteLayout.createSequentialGroup()
                         .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(p_player3, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(p_player3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(p_player1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(p_player2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(p_player4, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)))
+                            .addComponent(p_player4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addComponent(p_oferta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -744,9 +751,13 @@ public class ClienteUI extends javax.swing.JFrame {
             this.mi_conectarServidor.setText("Desconectar");
             this.conectado = true;
         } else {
+            this.cliUDP.encerrarConexao();
             this.mi_conectarServidor.setText("Conectar ao Servidor");
             this.conectado = false;
         }
+        
+        this.m_convites.setEnabled(conectado);
+        this.m_criarSala.setEnabled(conectado);
     }//GEN-LAST:event_mi_conectarServidorActionPerformed
 
     private void mi_convitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_convitesActionPerformed
@@ -757,7 +768,7 @@ public class ClienteUI extends javax.swing.JFrame {
         Object[] ob = new Object[2];
         for (Convite c : convites) {
             ob[0] = c.getIp();
-            ob[1] = c.getPorta();
+            ob[1] = c.isSenha();
 
             model.addRow(ob);
         }
@@ -785,7 +796,15 @@ public class ClienteUI extends javax.swing.JFrame {
             return;
         }
         this.cliUDP.criarSala(opc);
+        
+        CardLayout card = (CardLayout) this.p_raiz.getLayout();
+        card.show(this.p_raiz, "cliente");
+        this.p_player1.setVisible(true);
     }//GEN-LAST:event_mi_novaSalaActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.cliUDP.encerrarConexao();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -899,5 +918,6 @@ public class ClienteUI extends javax.swing.JFrame {
     public void addConvite(Convite c) {
         this.convites.add(c);
     }
-
+    
+    
 }

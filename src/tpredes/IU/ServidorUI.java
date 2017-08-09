@@ -23,6 +23,9 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
 
         server = new Servidor();
         server.setUI(this);
+        
+        Thread t = new Thread(this);
+        t.start();
 
     }
 
@@ -38,7 +41,6 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
         p_servidor = new javax.swing.JPanel();
         sp_servidor = new javax.swing.JScrollPane();
         tb_servidor = new javax.swing.JTable();
-        onButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,33 +75,21 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
             tb_servidor.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        onButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        onButton.setText("Ligar");
-        onButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout p_servidorLayout = new javax.swing.GroupLayout(p_servidor);
         p_servidor.setLayout(p_servidorLayout);
         p_servidorLayout.setHorizontalGroup(
             p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_servidorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(sp_servidor)
-                    .addComponent(onButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(sp_servidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         p_servidorLayout.setVerticalGroup(
             p_servidorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(p_servidorLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_servidorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(sp_servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(onButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(sp_servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,14 +105,6 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void onButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onButtonActionPerformed
-        
-        Thread t = new Thread(this);
-        t.start();
-        //server.escuta();
-       
-    }//GEN-LAST:event_onButtonActionPerformed
     
     public void atualiza(){
         DefaultTableModel model = (DefaultTableModel) this.tb_servidor.getModel();
@@ -177,7 +159,6 @@ public class ServidorUI extends javax.swing.JFrame implements Runnable {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton onButton;
     private javax.swing.JPanel p_servidor;
     private javax.swing.JScrollPane sp_servidor;
     private javax.swing.JTable tb_servidor;

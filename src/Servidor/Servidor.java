@@ -78,22 +78,31 @@ public class Servidor implements Runnable {
         return cPlayers;
     }
 
-    public void alteraStatus(String estado, InetAddress ip) {
-        for (JogadorS j : this.players) {
-            if (j.getIP().getHostAddress().equals(ip.getHostAddress())) {
-                j.setStatus(estado);
-                return;
-            }
-        }
+    public void alteraStatus(String estado, int n) {
+        JogadorS j = this.players.get(n);
+        j.setStatus(estado);
+        return;
 
     }
 
-    public void removePlayer(String ip) {
-        for (JogadorS p : this.players) {
-            if (p.getIP().getHostAddress().equals(ip)) {
-                this.players.remove(p);
+    public void removePlayer(int n) {
+        this.players.remove(n);
+        this.prox--;
+        for (int i = n; i < this.prox; i++) {
+            try {
+                JogadorS jS = this.players.get(i);
+                String convbytes = "100 " //Novo Jogador Online
+                        + i + " ";
+                this.prox++;
+                byte[] resposta = convbytes.getBytes();
+                DatagramSocket dsResp = new DatagramSocket();
+                DatagramPacket dpResp = new DatagramPacket(resposta, resposta.length, jS.getIP(), jS.getPortaUDP());
+                dsResp.send(dpResp);
+            } catch (Exception e) {
+
             }
         }
+
     }
 
     public JogadorS getPlayer(int i) {
@@ -139,15 +148,19 @@ public class Servidor implements Runnable {
 
         switch (tk.nextToken()) {
             case "000": //Nova Sala
-                ArrayList<JogadorS> disponiveis = getDisponiveis();
+                System.out.println("142 (Servidor)- Recebeu requisição de nova sala");
                 int num = Integer.parseInt(tk.nextToken());
                 jS = getPlayer(num);
+                alteraStatus("2", num);
+
+                ArrayList<JogadorS> disponiveis = getDisponiveis();
                 if (jS != null) {
                     try {
                         porta = Integer.valueOf(tk.nextToken());
                         String convbytes;
 
                         for (JogadorS j : disponiveis) {  //Enquanto não percorrer todos os disponíveis
+                            System.out.println("152 (Servidor) - ADD convite player");
                             convbytes = "101 " + j.getEnderecoIP() + " " + j.getPortaUDP() + " "; //Envia o IP dos jogadores
                             resposta = convbytes.getBytes();
                             dsResp = new DatagramSocket();
@@ -191,9 +204,9 @@ public class Servidor implements Runnable {
 
             case "002": //Novo Status
                 try {
-                    InetAddress ip1 = dt.getAddress();
                     String status = tk.nextToken();
-                    alteraStatus(status, ip1);
+                    int numJ = Integer.parseInt(tk.nextToken());
+                    alteraStatus(status, numJ);
 
                 } catch (NumberFormatException e) {
                     System.out.println("Não foi possível atender a solicitação 002");
@@ -202,8 +215,8 @@ public class Servidor implements Runnable {
 
             case "070":
                 try {
-                    ip = dt.getAddress().toString();
-                    removePlayer(ip);
+                    int numJ = Integer.parseInt(tk.nextToken());
+                    removePlayer(numJ);
 
                 } catch (Exception e) {
                     System.out.println("Não foi possível atender a solicitação 007");
